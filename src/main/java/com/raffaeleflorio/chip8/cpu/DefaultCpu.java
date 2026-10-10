@@ -10,8 +10,8 @@ import java.util.List;
 
 public final class DefaultCpu implements Cpu {
 
-    private final UnsignedShort ZERO = new UnsignedShort.From(0);
-    private final UnsignedShort TWO = new UnsignedShort.From(2);
+    private final static UnsignedShort PC_ZERO = new UnsignedShort.From(0x200);
+    private final static UnsignedShort TWO = new UnsignedShort.From(2);
 
     private final Stack stack;
     private final List<Register<UnsignedByte>> vxRegisters;
@@ -40,7 +40,7 @@ public final class DefaultCpu implements Cpu {
                 ),
                 List.of(
                         new IRegister(),
-                        new PCRegister()
+                        new PCRegister(PC_ZERO)
                 )
         );
     }
@@ -57,14 +57,18 @@ public final class DefaultCpu implements Cpu {
 
     @Override
     public void execute(final List<Instruction> instructions) {
-        this.pc().value(ZERO);
-        while (this.pc().value().asInteger() / 2 < instructions.size()) {
+        this.pc().value(PC_ZERO);
+        while (this.pcValueAsIndex() < instructions.size()) {
             var currentPc = this.pc().value();
-            instructions.get(this.pc().value().asInteger() / 2).execute(this);
+            instructions.get(this.pcValueAsIndex()).execute(this);
             if (currentPc.equals(this.pc().value())) {
                 this.pc().add(TWO);
             }
         }
+    }
+
+    private Integer pcValueAsIndex() {
+        return (this.pc().value().asInteger() - PC_ZERO.asInteger()) / 2;
     }
 
     @Override

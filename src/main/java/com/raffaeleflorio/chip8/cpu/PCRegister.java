@@ -10,10 +10,6 @@ final class PCRegister implements Cpu.Register<UnsignedShort> {
 
     private UnsignedShort value;
 
-    PCRegister() {
-        this(new UnsignedShort.From());
-    }
-
     PCRegister(final UnsignedShort value) {
         this.value = value;
     }

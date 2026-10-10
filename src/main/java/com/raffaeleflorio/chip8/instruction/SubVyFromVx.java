@@ -20,7 +20,6 @@ public final class SubVyFromVx implements Instruction {
         this.secondRegisterId = secondRegisterId;
     }
 
-
     @Override
     public void execute(final Cpu cpu) {
         var firstRegister = this.firstRegister(cpu);
