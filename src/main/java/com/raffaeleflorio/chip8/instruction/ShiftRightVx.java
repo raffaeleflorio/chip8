@@ -1,0 +1,28 @@
+package com.raffaeleflorio.chip8.instruction;
+
+import com.raffaeleflorio.chip8.Cpu;
+import com.raffaeleflorio.chip8.Instruction;
+import com.raffaeleflorio.chip8.UnsignedByte;
+
+/**
+ * 8XY6 opcode: Shifts VX to the right by 1, then stores the least significant bit of VX prior to the shift into VF
+ */
+public final class ShiftRightVx implements Instruction {
+
+    private final RegisterId registerId; // X
+
+    public ShiftRightVx(final RegisterId registerId) {
+        this.registerId = registerId;
+    }
+
+    @Override
+    public void execute(final Cpu cpu) {
+        this.register(cpu).shiftRight(
+                lsb -> cpu.vF().value(lsb.asUnsignedByte())
+        );
+    }
+
+    private Cpu.Register<UnsignedByte> register(final Cpu cpu) {
+        return this.registerId.toRegister(cpu);
+    }
+}
