@@ -47,6 +47,8 @@ public interface Cpu {
 
     Register<UnsignedShort> pc();
 
+    Stack stack();
+
     interface Register<VALUE> {
 
         VALUE value();

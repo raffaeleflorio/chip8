@@ -2,6 +2,7 @@ package com.raffaeleflorio.chip8.cpu;
 
 import com.raffaeleflorio.chip8.Cpu;
 import com.raffaeleflorio.chip8.Instruction;
+import com.raffaeleflorio.chip8.Stack;
 import com.raffaeleflorio.chip8.UnsignedByte;
 import com.raffaeleflorio.chip8.UnsignedShort;
 
@@ -12,11 +13,13 @@ public final class DefaultCpu implements Cpu {
     private final UnsignedShort ZERO = new UnsignedShort.From(0);
     private final UnsignedShort TWO = new UnsignedShort.From(2);
 
+    private final Stack stack;
     private final List<Register<UnsignedByte>> vxRegisters;
     private final List<Register<UnsignedShort>> memoryRegisters;
 
-    public DefaultCpu() {
+    public DefaultCpu(final Stack stack) {
         this(
+                stack,
                 List.of(
                         new VXRegister(),
                         new VXRegister(),
@@ -42,7 +45,12 @@ public final class DefaultCpu implements Cpu {
         );
     }
 
-    DefaultCpu(final List<Register<UnsignedByte>> vxRegisters, final List<Register<UnsignedShort>> memoryRegisters) {
+    DefaultCpu(
+            final Stack stack,
+            final List<Register<UnsignedByte>> vxRegisters,
+            final List<Register<UnsignedShort>> memoryRegisters
+    ) {
+        this.stack = stack;
         this.vxRegisters = vxRegisters;
         this.memoryRegisters = memoryRegisters;
     }
@@ -147,5 +155,10 @@ public final class DefaultCpu implements Cpu {
     @Override
     public Register<UnsignedShort> pc() {
         return this.memoryRegisters.getLast();
+    }
+
+    @Override
+    public Stack stack() {
+        return this.stack;
     }
 }
