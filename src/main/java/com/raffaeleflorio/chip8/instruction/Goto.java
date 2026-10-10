@@ -9,8 +9,6 @@ import com.raffaeleflorio.chip8.UnsignedShort;
  */
 public final class Goto implements Instruction {
 
-    private final static UnsignedShort TWO = new UnsignedShort.From(2);
-
     private final UnsignedShort address; // NNN
 
     public Goto(final UnsignedShort address) {
