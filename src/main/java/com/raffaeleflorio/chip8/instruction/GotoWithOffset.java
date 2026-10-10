@@ -21,4 +21,9 @@ public final class GotoWithOffset implements Instruction {
                 this.value.sum(cpu.v0().value().asUnsignedShort())
         );
     }
+
+    @Override
+    public String toString() {
+        return "B%03X".formatted(this.value.asInteger());
+    }
 }

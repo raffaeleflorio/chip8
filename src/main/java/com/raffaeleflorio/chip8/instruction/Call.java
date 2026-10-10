@@ -20,4 +20,9 @@ public final class Call implements Instruction {
         cpu.stack().push(cpu.pc().value());
         cpu.pc().value(this.subroutine);
     }
+
+    @Override
+    public String toString() {
+        return "2%03X".formatted(this.subroutine.asInteger());
+    }
 }

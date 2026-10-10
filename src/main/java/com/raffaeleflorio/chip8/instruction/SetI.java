@@ -19,4 +19,9 @@ public final class SetI implements Instruction {
     public void execute(final Cpu cpu) {
         cpu.i().value(this.value);
     }
+
+    @Override
+    public String toString() {
+        return "A%03X".formatted(this.value.asInteger());
+    }
 }

@@ -24,4 +24,9 @@ public final class AddVxToI implements Instruction {
     private UnsignedByte registerValue(final Cpu cpu) {
         return this.registerId.toRegister(cpu).value();
     }
+
+    @Override
+    public String toString() {
+        return "F%X1E".formatted(this.registerId.ordinal());
+    }
 }

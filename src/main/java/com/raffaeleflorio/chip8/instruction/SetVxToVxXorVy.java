@@ -29,4 +29,9 @@ public final class SetVxToVxXorVy implements Instruction {
     private UnsignedByte secondRegisterValue(final Cpu cpu) {
         return this.secondRegisterId.toRegister(cpu).value();
     }
+
+    @Override
+    public String toString() {
+        return "8%X%X3".formatted(this.firstRegisterId.ordinal(), this.secondRegisterId.ordinal());
+    }
 }

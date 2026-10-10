@@ -38,4 +38,9 @@ public final class AddVyToVx implements Instruction {
     private UnsignedByte secondRegisterValue(final Cpu cpu) {
         return this.secondRegisterId.toRegister(cpu).value();
     }
+
+    @Override
+    public String toString() {
+        return "8%X%X4".formatted(this.firstRegisterId.ordinal(), this.secondRegisterId.ordinal());
+    }
 }

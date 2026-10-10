@@ -25,4 +25,9 @@ public final class AddToVx implements Instruction {
     private Cpu.Register<UnsignedByte> register(final Cpu cpu) {
         return this.registerId.toRegister(cpu);
     }
+
+    @Override
+    public String toString() {
+        return "7%X%02X".formatted(this.registerId.ordinal(), this.value.asInteger());
+    }
 }

@@ -38,4 +38,9 @@ public final class IfVxEqVy implements Instruction {
     private UnsignedByte secondRegisterValue(final Cpu cpu) {
         return this.secondRegisterId.toRegister(cpu).value();
     }
+
+    @Override
+    public String toString() {
+        return "5%X%X0".formatted(this.firstRegisterId.ordinal(), this.secondRegisterId.ordinal());
+    }
 }

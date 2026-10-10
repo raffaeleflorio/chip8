@@ -9,7 +9,7 @@ import com.raffaeleflorio.chip8.UnsignedByte;
  */
 public final class ShiftLeftVx implements Instruction {
 
-    private final RegisterId registerId; // X
+    private final RegisterId registerId; // X, Y
 
     public ShiftLeftVx(final RegisterId registerId) {
         this.registerId = registerId;
@@ -24,5 +24,10 @@ public final class ShiftLeftVx implements Instruction {
 
     private Cpu.Register<UnsignedByte> register(final Cpu cpu) {
         return this.registerId.toRegister(cpu);
+    }
+
+    @Override
+    public String toString() {
+        return "8%X%XE".formatted(this.registerId.ordinal(), this.registerId.ordinal());
     }
 }

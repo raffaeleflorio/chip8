@@ -12,4 +12,9 @@ public final class NoOp implements Instruction {
     public void execute(final Cpu cpu) {
 
     }
+
+    @Override
+    public String toString() {
+        return "0";
+    }
 }

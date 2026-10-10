@@ -44,4 +44,9 @@ public final class SetVxToMaskedRand implements Instruction {
     private UnsignedByte randomUnsignedByte() {
         return new UnsignedByte.From(this.random.nextInt(MAX_RAND_EXCLUSIVE));
     }
+
+    @Override
+    public String toString() {
+        return "C%X%02X".formatted(this.registerId.ordinal(), this.value.asInteger());
+    }
 }

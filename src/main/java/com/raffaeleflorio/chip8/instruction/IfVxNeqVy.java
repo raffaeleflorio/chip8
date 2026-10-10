@@ -23,7 +23,6 @@ public final class IfVxNeqVy implements Instruction {
         this.secondRegisterId = secondRegisterId;
     }
 
-
     @Override
     public void execute(final Cpu cpu) {
         if (!this.firstRegisterValue(cpu).equals(this.secondRegisterValue(cpu))) {
@@ -37,5 +36,10 @@ public final class IfVxNeqVy implements Instruction {
 
     private UnsignedByte secondRegisterValue(final Cpu cpu) {
         return this.secondRegisterId.toRegister(cpu).value();
+    }
+
+    @Override
+    public String toString() {
+        return "9%X%X0".formatted(this.firstRegisterId.ordinal(), this.secondRegisterId.ordinal());
     }
 }

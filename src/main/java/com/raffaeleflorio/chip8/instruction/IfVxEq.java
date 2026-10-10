@@ -30,4 +30,9 @@ public final class IfVxEq implements Instruction {
     private UnsignedByte registerValue(final Cpu cpu) {
         return this.registerId.toRegister(cpu).value();
     }
+
+    @Override
+    public String toString() {
+        return "3%X%02X".formatted(this.registerId.ordinal(), this.value.asInteger());
+    }
 }

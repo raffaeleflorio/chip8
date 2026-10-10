@@ -15,4 +15,9 @@ public final class Return implements Instruction {
     public void execute(final Cpu cpu) {
         cpu.pc().value(cpu.stack().pop().sum(TWO));
     }
+
+    @Override
+    public String toString() {
+        return "00EE";
+    }
 }

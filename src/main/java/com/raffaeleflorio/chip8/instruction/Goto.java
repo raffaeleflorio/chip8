@@ -19,4 +19,9 @@ public final class Goto implements Instruction {
     public void execute(final Cpu cpu) {
         cpu.pc().value(this.address);
     }
+
+    @Override
+    public String toString() {
+        return "1%03X".formatted(this.address.asInteger());
+    }
 }
