@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatException;
-import static org.assertj.core.api.Assertions.assertThatNoException;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 class UnsignedByteTest {
@@ -126,23 +125,37 @@ class UnsignedByteTest {
     void runs_the_overflow_code_if_it_overflowed() {
         var ubyte = new UnsignedByte.From(256);
 
-        assertThatNoException()
-                .isThrownBy(
-                        () -> ubyte.ifOverflowedOrElse(
-                                () -> {
-                                },
-                                () -> {
-                                    throw new IllegalStateException();
-                                })
-                );
+        assertThatException().isThrownBy(
+                () -> ubyte.ifOverflowedOrElse(
+                        () -> {
+                            throw new IllegalStateException();
+                        },
+                        () -> {
+                        })
+        );
     }
 
     @Test
-    void does_not_run_the_overflow_code_if_it_did_not_overflow() {
+    void runs_the_not_overflowed_code_if_it_did_not_overflow() {
         var ubyte = new UnsignedByte.From(128);
 
-        assertThatNoException().isThrownBy(
+        assertThatException().isThrownBy(
                 () -> ubyte.ifOverflowedOrElse(
+                        () -> {
+                        },
+                        () -> {
+                            throw new IllegalStateException();
+                        }
+                )
+        );
+    }
+
+    @Test
+    void runs_the_underflow_code_if_it_underflowed() {
+        var ubyte = new UnsignedByte.From(-1);
+
+        assertThatException().isThrownBy(
+                () -> ubyte.ifUnderflowedOrElse(
                         () -> {
                             throw new IllegalStateException();
                         },
@@ -153,31 +166,15 @@ class UnsignedByteTest {
     }
 
     @Test
-    void runs_the_underflow_code_if_it_underflowed() {
-        var ubyte = new UnsignedByte.From(-1);
-
-        assertThatNoException()
-                .isThrownBy(
-                        () -> ubyte.ifUnderflowedOrElse(
-                                () -> {
-                                },
-                                () -> {
-                                    throw new IllegalStateException();
-                                }
-                        )
-                );
-    }
-
-    @Test
-    void does_not_run_the_underflow_code_if_it_did_not_underflow() {
+    void runs_the_not_underflow_code_if_it_did_not_underflow() {
         var ubyte = new UnsignedByte.From(0);
 
-        assertThatNoException().isThrownBy(
+        assertThatException().isThrownBy(
                 () -> ubyte.ifUnderflowedOrElse(
                         () -> {
-                            throw new IllegalStateException();
                         },
                         () -> {
+                            throw new IllegalStateException();
                         }
                 )
         );

@@ -121,9 +121,9 @@ public interface UnsignedByte {
         }
 
         @Override
-        public void ifOverflowedOrElse(final Runnable overflowed, final Runnable whenNotOverflowed) {
+        public void ifOverflowedOrElse(final Runnable whenOverflowed, final Runnable whenNotOverflowed) {
             if (this.value > 0xFF) {
-                overflowed.run();
+                whenOverflowed.run();
             } else {
                 whenNotOverflowed.run();
             }

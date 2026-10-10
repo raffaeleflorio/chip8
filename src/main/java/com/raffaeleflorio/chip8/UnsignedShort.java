@@ -11,7 +11,15 @@ public interface UnsignedShort {
         );
     }
 
-    void ifOverflowed(Runnable runnable);
+    default void ifOverflowed(Runnable runnable) {
+        this.ifOverflowedOrElse(
+                runnable,
+                () -> {
+                }
+        );
+    }
+
+    void ifOverflowedOrElse(Runnable whenOverflowed, Runnable whenNotOverflowed);
 
     Integer asInteger();
 
@@ -33,9 +41,11 @@ public interface UnsignedShort {
         }
 
         @Override
-        public void ifOverflowed(final Runnable runnable) {
+        public void ifOverflowedOrElse(final Runnable whenOverflowed, final Runnable whenNotOverflowed) {
             if (this.value > 0xFFFF) {
-                runnable.run();
+                whenOverflowed.run();
+            } else {
+                whenNotOverflowed.run();
             }
         }
 

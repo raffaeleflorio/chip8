@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatException;
-import static org.assertj.core.api.Assertions.assertThatNoException;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 class UnsignedShortTest {
@@ -47,22 +46,29 @@ class UnsignedShortTest {
     void runs_the_overflow_code_if_it_overflowed() {
         var ushort = new UnsignedShort.From(65536);
 
-        assertThatException()
-                .isThrownBy(
-                        () -> ushort.ifOverflowed(() -> {
+        assertThatException().isThrownBy(
+                () -> ushort.ifOverflowedOrElse(
+                        () -> {
                             throw new IllegalStateException();
-                        })
-                );
+                        },
+                        () -> {
+                        }
+                )
+        );
     }
 
     @Test
-    void does_not_run_the_overflow_code_if_it_did_not_overflow() {
+    void runs_the_not_overflow_code_if_it_did_not_overflow() {
         var ushort = new UnsignedShort.From(4200);
 
-        assertThatNoException().isThrownBy(
-                () -> ushort.ifOverflowed(() -> {
-                    throw new IllegalStateException();
-                })
+        assertThatException().isThrownBy(
+                () -> ushort.ifOverflowedOrElse(
+                        () -> {
+                        },
+                        () -> {
+                            throw new IllegalStateException();
+                        }
+                )
         );
     }
 
