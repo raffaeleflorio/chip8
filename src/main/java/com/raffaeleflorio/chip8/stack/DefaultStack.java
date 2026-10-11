@@ -3,6 +3,8 @@ package com.raffaeleflorio.chip8.stack;
 import com.raffaeleflorio.chip8.Stack;
 import com.raffaeleflorio.chip8.UnsignedShort;
 
+import java.util.NoSuchElementException;
+
 public final class DefaultStack implements Stack {
 
     private final static Integer MAX_DEPTH = 12;
@@ -24,11 +26,17 @@ public final class DefaultStack implements Stack {
 
     @Override
     public void push(final UnsignedShort address) {
+        if (this.sp.equals(MAX_DEPTH)) {
+            throw new IllegalStateException();
+        }
         this.stack[sp++] = address;
     }
 
     @Override
     public UnsignedShort pop() {
+        if (this.sp.equals(0)) {
+            throw new NoSuchElementException();
+        }
         return this.stack[--sp];
     }
 }
