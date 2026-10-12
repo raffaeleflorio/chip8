@@ -2,6 +2,7 @@ package com.raffaeleflorio.chip8.instruction;
 
 import com.raffaeleflorio.chip8.Cpu;
 import com.raffaeleflorio.chip8.Instruction;
+import com.raffaeleflorio.chip8.Stack;
 import com.raffaeleflorio.chip8.UnsignedByte;
 import com.raffaeleflorio.chip8.UnsignedShort;
 
@@ -25,18 +26,18 @@ public final class IfVxEqVy implements Instruction {
 
 
     @Override
-    public void execute(final Cpu cpu) {
-        if (this.firstRegisterValue(cpu).equals(this.secondRegisterValue(cpu))) {
-            cpu.pc().add(FOUR);
+    public void execute(final Cpu.Registers registers, final Stack stack) {
+        if (this.firstRegisterValue(registers).equals(this.secondRegisterValue(registers))) {
+            registers.pc().add(FOUR);
         }
     }
 
-    private UnsignedByte firstRegisterValue(final Cpu cpu) {
-        return this.firstRegisterId.toRegister(cpu).value();
+    private UnsignedByte firstRegisterValue(final Cpu.Registers registers) {
+        return this.firstRegisterId.toRegister(registers).value();
     }
 
-    private UnsignedByte secondRegisterValue(final Cpu cpu) {
-        return this.secondRegisterId.toRegister(cpu).value();
+    private UnsignedByte secondRegisterValue(final Cpu.Registers registers) {
+        return this.secondRegisterId.toRegister(registers).value();
     }
 
     @Override

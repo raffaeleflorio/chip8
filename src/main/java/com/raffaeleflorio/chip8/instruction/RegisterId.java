@@ -20,23 +20,23 @@ public enum RegisterId {
     VD,
     VE;
 
-    Cpu.Register<UnsignedByte> toRegister(final Cpu cpu) {
+    Cpu.Register<UnsignedByte> toRegister(final Cpu.Registers registers) {
         return switch (this) {
-            case V0 -> cpu.v0();
-            case V1 -> cpu.v1();
-            case V2 -> cpu.v2();
-            case V3 -> cpu.v3();
-            case V4 -> cpu.v4();
-            case V5 -> cpu.v5();
-            case V6 -> cpu.v6();
-            case V7 -> cpu.v7();
-            case V8 -> cpu.v8();
-            case V9 -> cpu.v9();
-            case VA -> cpu.vA();
-            case VB -> cpu.vB();
-            case VC -> cpu.vC();
-            case VD -> cpu.vD();
-            case VE -> cpu.vE();
+            case V0 -> registers.v0();
+            case V1 -> registers.v1();
+            case V2 -> registers.v2();
+            case V3 -> registers.v3();
+            case V4 -> registers.v4();
+            case V5 -> registers.v5();
+            case V6 -> registers.v6();
+            case V7 -> registers.v7();
+            case V8 -> registers.v8();
+            case V9 -> registers.v9();
+            case VA -> registers.vA();
+            case VB -> registers.vB();
+            case VC -> registers.vC();
+            case VD -> registers.vD();
+            case VE -> registers.vE();
         };
     }
 }

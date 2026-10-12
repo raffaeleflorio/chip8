@@ -2,6 +2,7 @@ package com.raffaeleflorio.chip8.instruction;
 
 import com.raffaeleflorio.chip8.Cpu;
 import com.raffaeleflorio.chip8.Instruction;
+import com.raffaeleflorio.chip8.Stack;
 import com.raffaeleflorio.chip8.UnsignedByte;
 import com.raffaeleflorio.chip8.UnsignedShort;
 
@@ -21,14 +22,14 @@ public final class IfVxNeq implements Instruction {
     }
 
     @Override
-    public void execute(final Cpu cpu) {
-        if (!this.registerValue(cpu).equals(this.value)) {
-            cpu.pc().add(FOUR);
+    public void execute(final Cpu.Registers registers, final Stack stack) {
+        if (!this.registerValue(registers).equals(this.value)) {
+            registers.pc().add(FOUR);
         }
     }
 
-    private UnsignedByte registerValue(final Cpu cpu) {
-        return this.registerId.toRegister(cpu).value();
+    private UnsignedByte registerValue(final Cpu.Registers registers) {
+        return this.registerId.toRegister(registers).value();
     }
 
     @Override

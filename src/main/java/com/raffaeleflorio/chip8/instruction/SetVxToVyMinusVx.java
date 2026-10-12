@@ -2,6 +2,7 @@ package com.raffaeleflorio.chip8.instruction;
 
 import com.raffaeleflorio.chip8.Cpu;
 import com.raffaeleflorio.chip8.Instruction;
+import com.raffaeleflorio.chip8.Stack;
 import com.raffaeleflorio.chip8.UnsignedByte;
 
 /**
@@ -21,23 +22,23 @@ public final class SetVxToVyMinusVx implements Instruction {
     }
 
     @Override
-    public void execute(final Cpu cpu) {
-        var firstRegister = this.firstRegister(cpu);
+    public void execute(final Cpu.Registers registers, final Stack stack) {
+        var firstRegister = this.firstRegister(registers);
         firstRegister.value(
-                this.secondRegisterValue(cpu).difference(firstRegister.value())
+                this.secondRegisterValue(registers).difference(firstRegister.value())
         );
         firstRegister.value().ifUnderflowedOrElse(
-                () -> cpu.vF().value(ZERO),
-                () -> cpu.vF().value(ONE)
+                () -> registers.vF().value(ZERO),
+                () -> registers.vF().value(ONE)
         );
     }
 
-    private Cpu.Register<UnsignedByte> firstRegister(final Cpu cpu) {
-        return this.firstRegisterId.toRegister(cpu);
+    private Cpu.Register<UnsignedByte> firstRegister(final Cpu.Registers registers) {
+        return this.firstRegisterId.toRegister(registers);
     }
 
-    private UnsignedByte secondRegisterValue(final Cpu cpu) {
-        return this.secondRegisterId.toRegister(cpu).value();
+    private UnsignedByte secondRegisterValue(final Cpu.Registers registers) {
+        return this.secondRegisterId.toRegister(registers).value();
     }
 
     @Override

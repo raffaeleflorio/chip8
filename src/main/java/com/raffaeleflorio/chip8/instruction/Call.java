@@ -2,6 +2,7 @@ package com.raffaeleflorio.chip8.instruction;
 
 import com.raffaeleflorio.chip8.Cpu;
 import com.raffaeleflorio.chip8.Instruction;
+import com.raffaeleflorio.chip8.Stack;
 import com.raffaeleflorio.chip8.UnsignedShort;
 
 /**
@@ -16,9 +17,9 @@ public final class Call implements Instruction {
     }
 
     @Override
-    public void execute(final Cpu cpu) {
-        cpu.stack().push(cpu.pc().value());
-        cpu.pc().value(this.subroutine);
+    public void execute(final Cpu.Registers registers, final Stack stack) {
+        stack.push(registers.pc().value());
+        registers.pc().value(this.subroutine);
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.raffaeleflorio.chip8.instruction;
 
 import com.raffaeleflorio.chip8.Cpu;
 import com.raffaeleflorio.chip8.Instruction;
+import com.raffaeleflorio.chip8.Stack;
 import com.raffaeleflorio.chip8.UnsignedByte;
 
 /**
@@ -18,12 +19,12 @@ public final class AddToVx implements Instruction {
     }
 
     @Override
-    public void execute(final Cpu cpu) {
-        this.register(cpu).add(this.value);
+    public void execute(final Cpu.Registers registers, final Stack stack) {
+        this.register(registers).add(this.value);
     }
 
-    private Cpu.Register<UnsignedByte> register(final Cpu cpu) {
-        return this.registerId.toRegister(cpu);
+    private Cpu.Register<UnsignedByte> register(final Cpu.Registers registers) {
+        return this.registerId.toRegister(registers);
     }
 
     @Override

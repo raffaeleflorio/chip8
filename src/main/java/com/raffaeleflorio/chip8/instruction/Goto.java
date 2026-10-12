@@ -2,6 +2,7 @@ package com.raffaeleflorio.chip8.instruction;
 
 import com.raffaeleflorio.chip8.Cpu;
 import com.raffaeleflorio.chip8.Instruction;
+import com.raffaeleflorio.chip8.Stack;
 import com.raffaeleflorio.chip8.UnsignedShort;
 
 /**
@@ -16,8 +17,8 @@ public final class Goto implements Instruction {
     }
 
     @Override
-    public void execute(final Cpu cpu) {
-        cpu.pc().value(this.address);
+    public void execute(final Cpu.Registers registers, final Stack stack) {
+        registers.pc().value(this.address);
     }
 
     @Override

@@ -3,7 +3,6 @@ package com.raffaeleflorio.chip8.cpu;
 import com.raffaeleflorio.chip8.Cpu;
 import com.raffaeleflorio.chip8.Instruction;
 import com.raffaeleflorio.chip8.Stack;
-import com.raffaeleflorio.chip8.UnsignedByte;
 import com.raffaeleflorio.chip8.UnsignedShort;
 
 import java.util.List;
@@ -14,155 +13,36 @@ public final class DefaultCpu implements Cpu {
     private final static UnsignedShort TWO = new UnsignedShort.From(2);
 
     private final Stack stack;
-    private final List<Register<UnsignedByte>> vxRegisters;
-    private final List<Register<UnsignedShort>> memoryRegisters;
+    private final Registers registers;
 
     public DefaultCpu(final Stack stack) {
         this(
                 stack,
-                List.of(
-                        new VXRegister(),
-                        new VXRegister(),
-                        new VXRegister(),
-                        new VXRegister(),
-                        new VXRegister(),
-                        new VXRegister(),
-                        new VXRegister(),
-                        new VXRegister(),
-                        new VXRegister(),
-                        new VXRegister(),
-                        new VXRegister(),
-                        new VXRegister(),
-                        new VXRegister(),
-                        new VXRegister(),
-                        new VXRegister(),
-                        new VXRegister()
-                ),
-                List.of(
-                        new IRegister(),
-                        new PCRegister(PC_ZERO)
-                )
+                new DefaultRegisters()
         );
     }
 
     DefaultCpu(
             final Stack stack,
-            final List<Register<UnsignedByte>> vxRegisters,
-            final List<Register<UnsignedShort>> memoryRegisters
+            final Registers registers
     ) {
         this.stack = stack;
-        this.vxRegisters = vxRegisters;
-        this.memoryRegisters = memoryRegisters;
+        this.registers = registers;
     }
 
     @Override
-    public void execute(final List<Instruction> instructions) {
-        this.pc().value(PC_ZERO);
+    public synchronized void execute(final List<Instruction> instructions) {
+        this.registers.pc().value(PC_ZERO);
         while (this.pcValueAsIndex() < instructions.size()) {
-            var currentPc = this.pc().value();
-            instructions.get(this.pcValueAsIndex()).execute(this);
-            if (currentPc.equals(this.pc().value())) {
-                this.pc().add(TWO);
+            var currentPc = this.registers.pc().value();
+            instructions.get(this.pcValueAsIndex()).execute(this.registers, this.stack);
+            if (currentPc.equals(this.registers.pc().value())) {
+                this.registers.pc().add(TWO);
             }
         }
     }
 
     private Integer pcValueAsIndex() {
-        return (this.pc().value().asInteger() - PC_ZERO.asInteger()) / 2;
-    }
-
-    @Override
-    public Register<UnsignedByte> v0() {
-        return this.vxRegisters.getFirst();
-    }
-
-    @Override
-    public Register<UnsignedByte> v1() {
-        return this.vxRegisters.get(1);
-    }
-
-    @Override
-    public Register<UnsignedByte> v2() {
-        return this.vxRegisters.get(2);
-    }
-
-    @Override
-    public Register<UnsignedByte> v3() {
-        return this.vxRegisters.get(3);
-    }
-
-    @Override
-    public Register<UnsignedByte> v4() {
-        return this.vxRegisters.get(4);
-    }
-
-    @Override
-    public Register<UnsignedByte> v5() {
-        return this.vxRegisters.get(5);
-    }
-
-    @Override
-    public Register<UnsignedByte> v6() {
-        return this.vxRegisters.get(6);
-    }
-
-    @Override
-    public Register<UnsignedByte> v7() {
-        return this.vxRegisters.get(7);
-    }
-
-    @Override
-    public Register<UnsignedByte> v8() {
-        return this.vxRegisters.get(8);
-    }
-
-    @Override
-    public Register<UnsignedByte> v9() {
-        return this.vxRegisters.get(9);
-    }
-
-    @Override
-    public Register<UnsignedByte> vA() {
-        return this.vxRegisters.get(10);
-    }
-
-    @Override
-    public Register<UnsignedByte> vB() {
-        return this.vxRegisters.get(11);
-    }
-
-    @Override
-    public Register<UnsignedByte> vC() {
-        return this.vxRegisters.get(12);
-    }
-
-    @Override
-    public Register<UnsignedByte> vD() {
-        return this.vxRegisters.get(13);
-    }
-
-    @Override
-    public Register<UnsignedByte> vE() {
-        return this.vxRegisters.get(14);
-    }
-
-    @Override
-    public Register<UnsignedByte> vF() {
-        return this.vxRegisters.getLast();
-    }
-
-    @Override
-    public Register<UnsignedShort> i() {
-        return this.memoryRegisters.getFirst();
-    }
-
-    @Override
-    public Register<UnsignedShort> pc() {
-        return this.memoryRegisters.getLast();
-    }
-
-    @Override
-    public Stack stack() {
-        return this.stack;
+        return (this.registers.pc().value().asInteger() - PC_ZERO.asInteger()) / 2;
     }
 }

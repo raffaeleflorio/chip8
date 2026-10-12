@@ -2,6 +2,7 @@ package com.raffaeleflorio.chip8.instruction;
 
 import com.raffaeleflorio.chip8.Cpu;
 import com.raffaeleflorio.chip8.Instruction;
+import com.raffaeleflorio.chip8.Stack;
 import com.raffaeleflorio.chip8.UnsignedShort;
 
 /**
@@ -16,9 +17,9 @@ public final class GotoWithOffset implements Instruction {
     }
 
     @Override
-    public void execute(final Cpu cpu) {
-        cpu.pc().value(
-                this.value.sum(cpu.v0().value().asUnsignedShort())
+    public void execute(final Cpu.Registers registers, final Stack stack) {
+        registers.pc().value(
+                this.value.sum(registers.v0().value().asUnsignedShort())
         );
     }
 

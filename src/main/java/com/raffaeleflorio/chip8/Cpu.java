@@ -11,43 +11,43 @@ public interface Cpu {
 
     void execute(List<Instruction> instructions);
 
-    Register<UnsignedByte> v0();
+    interface Registers {
+        Register<UnsignedByte> v0();
 
-    Register<UnsignedByte> v1();
+        Register<UnsignedByte> v1();
 
-    Register<UnsignedByte> v2();
+        Register<UnsignedByte> v2();
 
-    Register<UnsignedByte> v3();
+        Register<UnsignedByte> v3();
 
-    Register<UnsignedByte> v4();
+        Register<UnsignedByte> v4();
 
-    Register<UnsignedByte> v5();
+        Register<UnsignedByte> v5();
 
-    Register<UnsignedByte> v6();
+        Register<UnsignedByte> v6();
 
-    Register<UnsignedByte> v7();
+        Register<UnsignedByte> v7();
 
-    Register<UnsignedByte> v8();
+        Register<UnsignedByte> v8();
 
-    Register<UnsignedByte> v9();
+        Register<UnsignedByte> v9();
 
-    Register<UnsignedByte> vA();
+        Register<UnsignedByte> vA();
 
-    Register<UnsignedByte> vB();
+        Register<UnsignedByte> vB();
 
-    Register<UnsignedByte> vC();
+        Register<UnsignedByte> vC();
 
-    Register<UnsignedByte> vD();
+        Register<UnsignedByte> vD();
 
-    Register<UnsignedByte> vE();
+        Register<UnsignedByte> vE();
 
-    Register<UnsignedByte> vF();
+        Register<UnsignedByte> vF();
 
-    Register<UnsignedShort> i();
+        Register<UnsignedShort> i();
 
-    Register<UnsignedShort> pc();
-
-    Stack stack();
+        Register<UnsignedShort> pc();
+    }
 
     interface Register<VALUE> {
 

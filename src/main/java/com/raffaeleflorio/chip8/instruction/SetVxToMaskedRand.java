@@ -2,6 +2,7 @@ package com.raffaeleflorio.chip8.instruction;
 
 import com.raffaeleflorio.chip8.Cpu;
 import com.raffaeleflorio.chip8.Instruction;
+import com.raffaeleflorio.chip8.Stack;
 import com.raffaeleflorio.chip8.UnsignedByte;
 
 import java.util.Random;
@@ -33,12 +34,12 @@ public final class SetVxToMaskedRand implements Instruction {
     }
 
     @Override
-    public void execute(final Cpu cpu) {
-        this.register(cpu).value(this.value.and(this.randomUnsignedByte()));
+    public void execute(final Cpu.Registers registers, final Stack stack) {
+        this.register(registers).value(this.value.and(this.randomUnsignedByte()));
     }
 
-    private Cpu.Register<UnsignedByte> register(final Cpu cpu) {
-        return this.registerId.toRegister(cpu);
+    private Cpu.Register<UnsignedByte> register(final Cpu.Registers registers) {
+        return this.registerId.toRegister(registers);
     }
 
     private UnsignedByte randomUnsignedByte() {
