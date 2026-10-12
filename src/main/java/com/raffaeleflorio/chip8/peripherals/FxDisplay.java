@@ -1,4 +1,4 @@
-package com.raffaeleflorio.chip8.display;
+package com.raffaeleflorio.chip8.peripherals;
 
 import com.raffaeleflorio.chip8.Display;
 import javafx.scene.Scene;

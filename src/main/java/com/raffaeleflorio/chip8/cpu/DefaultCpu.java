@@ -2,6 +2,7 @@ package com.raffaeleflorio.chip8.cpu;
 
 import com.raffaeleflorio.chip8.Cpu;
 import com.raffaeleflorio.chip8.Instruction;
+import com.raffaeleflorio.chip8.Peripherals;
 import com.raffaeleflorio.chip8.Stack;
 import com.raffaeleflorio.chip8.UnsignedShort;
 
@@ -13,20 +14,24 @@ public final class DefaultCpu implements Cpu {
     private final static UnsignedShort TWO = new UnsignedShort.From(2);
 
     private final Stack stack;
+    private final Peripherals peripherals;
     private final Registers registers;
 
-    public DefaultCpu(final Stack stack) {
+    public DefaultCpu(final Stack stack, final Peripherals peripherals) {
         this(
                 stack,
+                peripherals,
                 new DefaultRegisters()
         );
     }
 
     DefaultCpu(
             final Stack stack,
+            final Peripherals peripherals,
             final Registers registers
     ) {
         this.stack = stack;
+        this.peripherals = peripherals;
         this.registers = registers;
     }
 
