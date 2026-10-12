@@ -38,6 +38,7 @@ public final class DefaultCpu implements Cpu {
     @Override
     public synchronized void execute(final List<Instruction> instructions) {
         this.registers.pc().value(PC_ZERO);
+        this.peripherals.display().on();
         while (this.pcValueAsIndex() < instructions.size()) {
             var currentPc = this.registers.pc().value();
             instructions.get(this.pcValueAsIndex()).execute(this.registers, this.stack, this.peripherals);
