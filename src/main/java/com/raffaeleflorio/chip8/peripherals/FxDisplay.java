@@ -7,6 +7,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+import java.util.Set;
+
 public final class FxDisplay implements Display {
 
     private final static Integer COLUMNS = 64;
@@ -63,19 +65,26 @@ public final class FxDisplay implements Display {
     }
 
     @Override
-    public void xor(final Integer x, final Integer y, final Runnable whenCollision, final Runnable whenNoCollision) {
-        var pixel = this.pixel(x, y);
-        if (this.on(pixel)) {
-            this.turnOff(pixel);
+    public void xor(final Set<Coordinate> coordinates, final Runnable whenCollision, final Runnable whenNoCollision) {
+        var collision = false;
+        for (var coordinate : coordinates) {
+            var pixel = this.pixel(coordinate.x(), coordinate.y());
+            if (this.on(pixel)) {
+                this.turnOff(pixel);
+                collision = true;
+            } else {
+                this.turnOn(pixel);
+            }
+        }
+        if (collision) {
             whenCollision.run();
         } else {
-            this.turnOn(pixel);
-            whenCollision.run();
+            whenNoCollision.run();
         }
     }
 
     private Rectangle pixel(final Integer x, final Integer y) {
-        if (x > COLUMNS || y > ROWS) {
+        if (x < 0 || y < 0 || x > COLUMNS || y > ROWS) {
             throw new IllegalArgumentException();
         }
         if (!this.initialized()) {
