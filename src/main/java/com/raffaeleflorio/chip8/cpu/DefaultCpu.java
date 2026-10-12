@@ -46,6 +46,7 @@ public final class DefaultCpu implements Cpu {
                 this.registers.pc().add(TWO);
             }
         }
+        this.peripherals.display().off();
     }
 
     private Integer pcValueAsIndex() {
