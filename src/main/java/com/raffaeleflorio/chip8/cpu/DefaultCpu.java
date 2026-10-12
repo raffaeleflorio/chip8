@@ -40,7 +40,7 @@ public final class DefaultCpu implements Cpu {
         this.registers.pc().value(PC_ZERO);
         while (this.pcValueAsIndex() < instructions.size()) {
             var currentPc = this.registers.pc().value();
-            instructions.get(this.pcValueAsIndex()).execute(this.registers, this.stack);
+            instructions.get(this.pcValueAsIndex()).execute(this.registers, this.stack, this.peripherals);
             if (currentPc.equals(this.registers.pc().value())) {
                 this.registers.pc().add(TWO);
             }
