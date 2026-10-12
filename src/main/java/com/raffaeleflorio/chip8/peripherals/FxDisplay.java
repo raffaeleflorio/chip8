@@ -63,13 +63,14 @@ public final class FxDisplay implements Display {
     }
 
     @Override
-    public void xor(final Integer x, final Integer y, final Runnable collision) {
+    public void xor(final Integer x, final Integer y, final Runnable whenCollision, final Runnable whenNoCollision) {
         var pixel = this.pixel(x, y);
         if (this.on(pixel)) {
             this.turnOff(pixel);
-            collision.run();
+            whenCollision.run();
         } else {
             this.turnOn(pixel);
+            whenCollision.run();
         }
     }
 

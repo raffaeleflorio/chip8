@@ -8,5 +8,5 @@ public interface Display {
 
     void clear();
 
-    void xor(Integer x, Integer y, Runnable collision);
+    void xor(Integer x, Integer y, Runnable whenCollision, Runnable whenNoCollision);
 }
