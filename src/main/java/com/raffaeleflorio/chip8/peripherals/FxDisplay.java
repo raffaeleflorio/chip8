@@ -91,7 +91,7 @@ public final class FxDisplay implements Display {
             throw new IllegalStateException();
         }
         var root = (TilePane) this.stage.getScene().getRoot();
-        return (Rectangle) root.getChildren().get(x * y);
+        return (Rectangle) root.getChildren().get((x * ROWS) + y);
     }
 
     private Boolean on(final Rectangle pixel) {
