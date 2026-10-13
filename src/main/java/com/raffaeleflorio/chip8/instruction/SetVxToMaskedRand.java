@@ -5,6 +5,7 @@ import com.raffaeleflorio.chip8.Instruction;
 import com.raffaeleflorio.chip8.Peripherals;
 import com.raffaeleflorio.chip8.Stack;
 import com.raffaeleflorio.chip8.UnsignedByte;
+import com.raffaeleflorio.chip8.UnsignedNibble;
 
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
@@ -16,11 +17,11 @@ public final class SetVxToMaskedRand implements Instruction {
 
     private final static Integer MAX_RAND_EXCLUSIVE = 256;
 
-    private final RegisterId registerId; // X
+    private final UnsignedNibble registerId; // X
     private final UnsignedByte value; // NN
     private final Random random;
 
-    public SetVxToMaskedRand(final RegisterId registerId, final UnsignedByte value) {
+    public SetVxToMaskedRand(final UnsignedNibble registerId, final UnsignedByte value) {
         this(
                 registerId,
                 value,
@@ -28,7 +29,7 @@ public final class SetVxToMaskedRand implements Instruction {
         );
     }
 
-    SetVxToMaskedRand(final RegisterId registerId, final UnsignedByte value, final Random random) {
+    SetVxToMaskedRand(final UnsignedNibble registerId, final UnsignedByte value, final Random random) {
         this.registerId = registerId;
         this.value = value;
         this.random = random;
@@ -40,7 +41,7 @@ public final class SetVxToMaskedRand implements Instruction {
     }
 
     private Cpu.Register<UnsignedByte> register(final Cpu.Registers registers) {
-        return this.registerId.toRegister(registers);
+        return registers.vX(this.registerId);
     }
 
     private UnsignedByte randomUnsignedByte() {
@@ -49,6 +50,6 @@ public final class SetVxToMaskedRand implements Instruction {
 
     @Override
     public String toString() {
-        return "C%X%02X".formatted(this.registerId.ordinal(), this.value.asInteger());
+        return "C%X%02X".formatted(this.registerId.asInteger(), this.value.asInteger());
     }
 }

@@ -5,16 +5,17 @@ import com.raffaeleflorio.chip8.Instruction;
 import com.raffaeleflorio.chip8.Peripherals;
 import com.raffaeleflorio.chip8.Stack;
 import com.raffaeleflorio.chip8.UnsignedByte;
+import com.raffaeleflorio.chip8.UnsignedNibble;
 
 /**
  * 7XNN opcode: Adds NN to VX
  */
 public final class AddToVx implements Instruction {
 
-    private final RegisterId registerId; // X
+    private final UnsignedNibble registerId; // X
     private final UnsignedByte value; // NN
 
-    public AddToVx(final RegisterId registerId, final UnsignedByte value) {
+    public AddToVx(final UnsignedNibble registerId, final UnsignedByte value) {
         this.registerId = registerId;
         this.value = value;
     }
@@ -25,11 +26,11 @@ public final class AddToVx implements Instruction {
     }
 
     private Cpu.Register<UnsignedByte> register(final Cpu.Registers registers) {
-        return this.registerId.toRegister(registers);
+        return registers.vX(this.registerId);
     }
 
     @Override
     public String toString() {
-        return "7%X%02X".formatted(this.registerId.ordinal(), this.value.asInteger());
+        return "7%X%02X".formatted(this.registerId.asInteger(), this.value.asInteger());
     }
 }

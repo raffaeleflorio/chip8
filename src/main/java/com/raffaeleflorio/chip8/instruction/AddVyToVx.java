@@ -5,6 +5,7 @@ import com.raffaeleflorio.chip8.Instruction;
 import com.raffaeleflorio.chip8.Peripherals;
 import com.raffaeleflorio.chip8.Stack;
 import com.raffaeleflorio.chip8.UnsignedByte;
+import com.raffaeleflorio.chip8.UnsignedNibble;
 
 /**
  * 8XY4 opcode: Adds VY to VX. VF is set to 1 when there's an overflow, and to 0 when there is not
@@ -14,10 +15,10 @@ public final class AddVyToVx implements Instruction {
     private final static UnsignedByte ZERO = new UnsignedByte.From(0);
     private final static UnsignedByte ONE = new UnsignedByte.From(1);
 
-    private final RegisterId firstRegisterId; // X
-    private final RegisterId secondRegisterId; // Y
+    private final UnsignedNibble firstRegisterId; // X
+    private final UnsignedNibble secondRegisterId; // Y
 
-    public AddVyToVx(final RegisterId firstRegisterId, final RegisterId secondRegisterId) {
+    public AddVyToVx(final UnsignedNibble firstRegisterId, final UnsignedNibble secondRegisterId) {
         this.firstRegisterId = firstRegisterId;
         this.secondRegisterId = secondRegisterId;
     }
@@ -34,15 +35,15 @@ public final class AddVyToVx implements Instruction {
     }
 
     private Cpu.Register<UnsignedByte> firstRegister(final Cpu.Registers registers) {
-        return this.firstRegisterId.toRegister(registers);
+        return registers.vX(this.firstRegisterId);
     }
 
     private UnsignedByte secondRegisterValue(final Cpu.Registers registers) {
-        return this.secondRegisterId.toRegister(registers).value();
+        return registers.vX(this.secondRegisterId).value();
     }
 
     @Override
     public String toString() {
-        return "8%X%X4".formatted(this.firstRegisterId.ordinal(), this.secondRegisterId.ordinal());
+        return "8%X%X4".formatted(this.firstRegisterId.asInteger(), this.secondRegisterId.asInteger());
     }
 }

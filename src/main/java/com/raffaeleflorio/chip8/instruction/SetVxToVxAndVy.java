@@ -5,16 +5,17 @@ import com.raffaeleflorio.chip8.Instruction;
 import com.raffaeleflorio.chip8.Peripherals;
 import com.raffaeleflorio.chip8.Stack;
 import com.raffaeleflorio.chip8.UnsignedByte;
+import com.raffaeleflorio.chip8.UnsignedNibble;
 
 /**
  * 8XY2 opcode: Sets VX to VX and VY
  */
 public final class SetVxToVxAndVy implements Instruction {
 
-    private final RegisterId firstRegisterId; // X
-    private final RegisterId secondRegisterId; // Y
+    private final UnsignedNibble firstRegisterId; // X
+    private final UnsignedNibble secondRegisterId; // Y
 
-    public SetVxToVxAndVy(final RegisterId firstRegisterId, final RegisterId secondRegisterId) {
+    public SetVxToVxAndVy(final UnsignedNibble firstRegisterId, final UnsignedNibble secondRegisterId) {
         this.firstRegisterId = firstRegisterId;
         this.secondRegisterId = secondRegisterId;
     }
@@ -25,15 +26,15 @@ public final class SetVxToVxAndVy implements Instruction {
     }
 
     private Cpu.Register<UnsignedByte> firstRegister(final Cpu.Registers registers) {
-        return this.firstRegisterId.toRegister(registers);
+        return registers.vX(this.firstRegisterId);
     }
 
     private UnsignedByte secondRegisterValue(final Cpu.Registers registers) {
-        return this.secondRegisterId.toRegister(registers).value();
+        return registers.vX(this.secondRegisterId).value();
     }
 
     @Override
     public String toString() {
-        return "8%X%X2".formatted(this.firstRegisterId.ordinal(), this.secondRegisterId.ordinal());
+        return "8%X%X2".formatted(this.firstRegisterId.asInteger(), this.secondRegisterId.asInteger());
     }
 }

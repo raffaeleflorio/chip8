@@ -5,6 +5,7 @@ import com.raffaeleflorio.chip8.Instruction;
 import com.raffaeleflorio.chip8.Peripherals;
 import com.raffaeleflorio.chip8.Stack;
 import com.raffaeleflorio.chip8.UnsignedByte;
+import com.raffaeleflorio.chip8.UnsignedNibble;
 import com.raffaeleflorio.chip8.UnsignedShort;
 
 /**
@@ -14,10 +15,10 @@ public final class IfVxNeq implements Instruction {
 
     private final static UnsignedShort FOUR = new UnsignedShort.From(4);
 
-    private final RegisterId registerId; // X
+    private final UnsignedNibble registerId; // X
     private final UnsignedByte value; // NN
 
-    public IfVxNeq(final RegisterId registerId, final UnsignedByte value) {
+    public IfVxNeq(final UnsignedNibble registerId, final UnsignedByte value) {
         this.registerId = registerId;
         this.value = value;
     }
@@ -30,11 +31,11 @@ public final class IfVxNeq implements Instruction {
     }
 
     private UnsignedByte registerValue(final Cpu.Registers registers) {
-        return this.registerId.toRegister(registers).value();
+        return registers.vX(this.registerId).value();
     }
 
     @Override
     public String toString() {
-        return "4%X%02X".formatted(this.registerId.ordinal(), this.value.asInteger());
+        return "4%X%02X".formatted(this.registerId.asInteger(), this.value.asInteger());
     }
 }

@@ -5,30 +5,30 @@ import com.raffaeleflorio.chip8.Instruction;
 import com.raffaeleflorio.chip8.Peripherals;
 import com.raffaeleflorio.chip8.Stack;
 import com.raffaeleflorio.chip8.UnsignedByte;
+import com.raffaeleflorio.chip8.UnsignedNibble;
 
 /**
  * FX1E opcode: Adds VX to I
  */
 public final class AddVxToI implements Instruction {
 
-    private final RegisterId registerId; // X
+    private final UnsignedNibble registerId; // X
 
-    public AddVxToI(final RegisterId registerId) {
+    public AddVxToI(final UnsignedNibble registerId) {
         this.registerId = registerId;
     }
 
-
     @Override
     public void execute(final Cpu.Registers registers, final Stack stack, final Peripherals peripherals) {
-        registers.i().add(this.registerValue(registers).asUnsignedShort());
+        registers.i().add(registers.vX(this.registerId).value().asUnsignedShort());
     }
 
     private UnsignedByte registerValue(final Cpu.Registers registers) {
-        return this.registerId.toRegister(registers).value();
+        return registers.vX(this.registerId).value();
     }
 
     @Override
     public String toString() {
-        return "F%X1E".formatted(this.registerId.ordinal());
+        return "F%X1E".formatted(this.registerId.asInteger());
     }
 }

@@ -5,6 +5,7 @@ import com.raffaeleflorio.chip8.Instruction;
 import com.raffaeleflorio.chip8.Peripherals;
 import com.raffaeleflorio.chip8.Stack;
 import com.raffaeleflorio.chip8.UnsignedByte;
+import com.raffaeleflorio.chip8.UnsignedNibble;
 import com.raffaeleflorio.chip8.UnsignedShort;
 
 /**
@@ -14,12 +15,12 @@ public final class IfVxNeqVy implements Instruction {
 
     private final static UnsignedShort FOUR = new UnsignedShort.From(4);
 
-    private final RegisterId firstRegisterId; // X
-    private final RegisterId secondRegisterId; // Y
+    private final UnsignedNibble firstRegisterId; // X
+    private final UnsignedNibble secondRegisterId; // Y
 
     public IfVxNeqVy(
-            final RegisterId firstRegisterId,
-            final RegisterId secondRegisterId
+            final UnsignedNibble firstRegisterId,
+            final UnsignedNibble secondRegisterId
     ) {
         this.firstRegisterId = firstRegisterId;
         this.secondRegisterId = secondRegisterId;
@@ -33,15 +34,15 @@ public final class IfVxNeqVy implements Instruction {
     }
 
     private UnsignedByte firstRegisterValue(final Cpu.Registers registers) {
-        return this.firstRegisterId.toRegister(registers).value();
+        return registers.vX(this.firstRegisterId).value();
     }
 
     private UnsignedByte secondRegisterValue(final Cpu.Registers registers) {
-        return this.secondRegisterId.toRegister(registers).value();
+        return registers.vX(this.secondRegisterId).value();
     }
 
     @Override
     public String toString() {
-        return "9%X%X0".formatted(this.firstRegisterId.ordinal(), this.secondRegisterId.ordinal());
+        return "9%X%X0".formatted(this.firstRegisterId.asInteger(), this.secondRegisterId.asInteger());
     }
 }

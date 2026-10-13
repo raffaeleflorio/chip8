@@ -12,6 +12,28 @@ public interface Cpu {
     void execute(List<Instruction> instructions);
 
     interface Registers {
+
+        default Register<UnsignedByte> vX(UnsignedNibble nibble) {
+            return nibble.to(
+                    this::v0,
+                    this::v1,
+                    this::v2,
+                    this::v3,
+                    this::v4,
+                    this::v5,
+                    this::v6,
+                    this::v7,
+                    this::v8,
+                    this::v9,
+                    this::vA,
+                    this::vB,
+                    this::vC,
+                    this::vD,
+                    this::vE,
+                    this::vF
+            );
+        }
+
         Register<UnsignedByte> v0();
 
         Register<UnsignedByte> v1();
@@ -49,21 +71,21 @@ public interface Cpu {
         Register<UnsignedShort> pc();
     }
 
-    interface Register<VALUE> {
+    interface Register<TO> {
 
-        VALUE value();
+        TO value();
 
-        void value(VALUE value);
+        void value(TO value);
 
-        void add(VALUE value);
+        void add(TO value);
 
-        void sub(VALUE value);
+        void sub(TO value);
 
-        void or(VALUE value);
+        void or(TO value);
 
-        void and(VALUE value);
+        void and(TO value);
 
-        void xor(VALUE value);
+        void xor(TO value);
 
         void shiftRight(Consumer<Bit> leastSignificantBit);
 

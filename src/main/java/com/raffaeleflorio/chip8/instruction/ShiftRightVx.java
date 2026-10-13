@@ -5,15 +5,16 @@ import com.raffaeleflorio.chip8.Instruction;
 import com.raffaeleflorio.chip8.Peripherals;
 import com.raffaeleflorio.chip8.Stack;
 import com.raffaeleflorio.chip8.UnsignedByte;
+import com.raffaeleflorio.chip8.UnsignedNibble;
 
 /**
  * 8XY6 opcode: Shifts VX to the right by 1, then stores the least significant bit of VX prior to the shift into VF
  */
 public final class ShiftRightVx implements Instruction {
 
-    private final RegisterId registerId; // X, Y
+    private final UnsignedNibble registerId; // X, Y
 
-    public ShiftRightVx(final RegisterId registerId) {
+    public ShiftRightVx(final UnsignedNibble registerId) {
         this.registerId = registerId;
     }
 
@@ -25,11 +26,11 @@ public final class ShiftRightVx implements Instruction {
     }
 
     private Cpu.Register<UnsignedByte> register(final Cpu.Registers registers) {
-        return this.registerId.toRegister(registers);
+        return registers.vX(this.registerId);
     }
 
     @Override
     public String toString() {
-        return "8%X%X6".formatted(this.registerId.ordinal(), this.registerId.ordinal());
+        return "8%X%X6".formatted(this.registerId.asInteger(), this.registerId.asInteger());
     }
 }

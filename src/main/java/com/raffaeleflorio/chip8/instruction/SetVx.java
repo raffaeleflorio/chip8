@@ -5,16 +5,17 @@ import com.raffaeleflorio.chip8.Instruction;
 import com.raffaeleflorio.chip8.Peripherals;
 import com.raffaeleflorio.chip8.Stack;
 import com.raffaeleflorio.chip8.UnsignedByte;
+import com.raffaeleflorio.chip8.UnsignedNibble;
 
 /**
  * 6XNN opcode: Sets VX to NN
  */
 public final class SetVx implements Instruction {
 
-    private final RegisterId registerId; // X
+    private final UnsignedNibble registerId; // X
     private final UnsignedByte value; // NN
 
-    public SetVx(final RegisterId registerId, final UnsignedByte value) {
+    public SetVx(final UnsignedNibble registerId, final UnsignedByte value) {
         this.registerId = registerId;
         this.value = value;
     }
@@ -25,11 +26,11 @@ public final class SetVx implements Instruction {
     }
 
     private Cpu.Register<UnsignedByte> register(final Cpu.Registers registers) {
-        return this.registerId.toRegister(registers);
+        return registers.vX(this.registerId);
     }
 
     @Override
     public String toString() {
-        return "6%X%02X".formatted(this.registerId.ordinal(), this.value.asInteger());
+        return "6%X%02X".formatted(this.registerId.asInteger(), this.value.asInteger());
     }
 }
