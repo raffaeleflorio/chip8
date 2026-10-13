@@ -34,6 +34,27 @@ public interface Cpu {
             );
         }
 
+        default Iterable<Register<UnsignedByte>> vXUpTo(UnsignedNibble nibble) {
+            return nibble.upTo(
+                    this::v0,
+                    this::v1,
+                    this::v2,
+                    this::v3,
+                    this::v4,
+                    this::v5,
+                    this::v6,
+                    this::v7,
+                    this::v8,
+                    this::v9,
+                    this::vA,
+                    this::vB,
+                    this::vC,
+                    this::vD,
+                    this::vE,
+                    this::vF
+            );
+        }
+
         Register<UnsignedByte> v0();
 
         Register<UnsignedByte> v1();

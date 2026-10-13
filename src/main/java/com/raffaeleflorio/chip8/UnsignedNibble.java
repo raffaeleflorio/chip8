@@ -1,10 +1,30 @@
 package com.raffaeleflorio.chip8;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 public interface UnsignedNibble {
 
     <TO> TO to(
+            Supplier<TO> zero,
+            Supplier<TO> one,
+            Supplier<TO> two,
+            Supplier<TO> three,
+            Supplier<TO> four,
+            Supplier<TO> five,
+            Supplier<TO> six,
+            Supplier<TO> seven,
+            Supplier<TO> eight,
+            Supplier<TO> nine,
+            Supplier<TO> ten,
+            Supplier<TO> eleven,
+            Supplier<TO> twelve,
+            Supplier<TO> thirteen,
+            Supplier<TO> fourteen,
+            Supplier<TO> fifteen
+    );
+
+    <TO> Iterable<TO> upTo(
             Supplier<TO> zero,
             Supplier<TO> one,
             Supplier<TO> two,
@@ -49,6 +69,28 @@ public interface UnsignedNibble {
         }
 
         @Override
+        public <TO> Iterable<TO> upTo(
+                final Supplier<TO> zero,
+                final Supplier<TO> one,
+                final Supplier<TO> two,
+                final Supplier<TO> three,
+                final Supplier<TO> four,
+                final Supplier<TO> five,
+                final Supplier<TO> six,
+                final Supplier<TO> seven,
+                final Supplier<TO> eight,
+                final Supplier<TO> nine,
+                final Supplier<TO> ten,
+                final Supplier<TO> eleven,
+                final Supplier<TO> twelve,
+                final Supplier<TO> thirteen,
+                final Supplier<TO> fourteen,
+                final Supplier<TO> fifteen
+        ) {
+            return List.of(zero.get());
+        }
+
+        @Override
         public Integer asInteger() {
             return 0;
         }
@@ -85,6 +127,28 @@ public interface UnsignedNibble {
                 final Supplier<TO> fifteen
         ) {
             return one.get();
+        }
+
+        @Override
+        public <TO> Iterable<TO> upTo(
+                final Supplier<TO> zero,
+                final Supplier<TO> one,
+                final Supplier<TO> two,
+                final Supplier<TO> three,
+                final Supplier<TO> four,
+                final Supplier<TO> five,
+                final Supplier<TO> six,
+                final Supplier<TO> seven,
+                final Supplier<TO> eight,
+                final Supplier<TO> nine,
+                final Supplier<TO> ten,
+                final Supplier<TO> eleven,
+                final Supplier<TO> twelve,
+                final Supplier<TO> thirteen,
+                final Supplier<TO> fourteen,
+                final Supplier<TO> fifteen
+        ) {
+            return List.of(zero.get(), one.get());
         }
 
         @Override
@@ -127,6 +191,28 @@ public interface UnsignedNibble {
         }
 
         @Override
+        public <TO> Iterable<TO> upTo(
+                final Supplier<TO> zero,
+                final Supplier<TO> one,
+                final Supplier<TO> two,
+                final Supplier<TO> three,
+                final Supplier<TO> four,
+                final Supplier<TO> five,
+                final Supplier<TO> six,
+                final Supplier<TO> seven,
+                final Supplier<TO> eight,
+                final Supplier<TO> nine,
+                final Supplier<TO> ten,
+                final Supplier<TO> eleven,
+                final Supplier<TO> twelve,
+                final Supplier<TO> thirteen,
+                final Supplier<TO> fourteen,
+                final Supplier<TO> fifteen
+        ) {
+            return List.of(zero.get(), one.get(), two.get());
+        }
+
+        @Override
         public Integer asInteger() {
             return 2;
         }
@@ -163,6 +249,28 @@ public interface UnsignedNibble {
                 final Supplier<TO> fifteen
         ) {
             return three.get();
+        }
+
+        @Override
+        public <TO> Iterable<TO> upTo(
+                final Supplier<TO> zero,
+                final Supplier<TO> one,
+                final Supplier<TO> two,
+                final Supplier<TO> three,
+                final Supplier<TO> four,
+                final Supplier<TO> five,
+                final Supplier<TO> six,
+                final Supplier<TO> seven,
+                final Supplier<TO> eight,
+                final Supplier<TO> nine,
+                final Supplier<TO> ten,
+                final Supplier<TO> eleven,
+                final Supplier<TO> twelve,
+                final Supplier<TO> thirteen,
+                final Supplier<TO> fourteen,
+                final Supplier<TO> fifteen
+        ) {
+            return List.of(zero.get(), one.get(), two.get(), three.get());
         }
 
         @Override
@@ -205,6 +313,28 @@ public interface UnsignedNibble {
         }
 
         @Override
+        public <TO> Iterable<TO> upTo(
+                final Supplier<TO> zero,
+                final Supplier<TO> one,
+                final Supplier<TO> two,
+                final Supplier<TO> three,
+                final Supplier<TO> four,
+                final Supplier<TO> five,
+                final Supplier<TO> six,
+                final Supplier<TO> seven,
+                final Supplier<TO> eight,
+                final Supplier<TO> nine,
+                final Supplier<TO> ten,
+                final Supplier<TO> eleven,
+                final Supplier<TO> twelve,
+                final Supplier<TO> thirteen,
+                final Supplier<TO> fourteen,
+                final Supplier<TO> fifteen
+        ) {
+            return List.of(zero.get(), one.get(), two.get(), three.get(), four.get());
+        }
+
+        @Override
         public Integer asInteger() {
             return 4;
         }
@@ -241,6 +371,28 @@ public interface UnsignedNibble {
                 final Supplier<TO> fifteen
         ) {
             return five.get();
+        }
+
+        @Override
+        public <TO> Iterable<TO> upTo(
+                final Supplier<TO> zero,
+                final Supplier<TO> one,
+                final Supplier<TO> two,
+                final Supplier<TO> three,
+                final Supplier<TO> four,
+                final Supplier<TO> five,
+                final Supplier<TO> six,
+                final Supplier<TO> seven,
+                final Supplier<TO> eight,
+                final Supplier<TO> nine,
+                final Supplier<TO> ten,
+                final Supplier<TO> eleven,
+                final Supplier<TO> twelve,
+                final Supplier<TO> thirteen,
+                final Supplier<TO> fourteen,
+                final Supplier<TO> fifteen
+        ) {
+            return List.of(zero.get(), one.get(), two.get(), three.get(), four.get(), five.get());
         }
 
         @Override
@@ -283,6 +435,28 @@ public interface UnsignedNibble {
         }
 
         @Override
+        public <TO> Iterable<TO> upTo(
+                final Supplier<TO> zero,
+                final Supplier<TO> one,
+                final Supplier<TO> two,
+                final Supplier<TO> three,
+                final Supplier<TO> four,
+                final Supplier<TO> five,
+                final Supplier<TO> six,
+                final Supplier<TO> seven,
+                final Supplier<TO> eight,
+                final Supplier<TO> nine,
+                final Supplier<TO> ten,
+                final Supplier<TO> eleven,
+                final Supplier<TO> twelve,
+                final Supplier<TO> thirteen,
+                final Supplier<TO> fourteen,
+                final Supplier<TO> fifteen
+        ) {
+            return List.of(zero.get(), one.get(), two.get(), three.get(), four.get(), five.get(), six.get());
+        }
+
+        @Override
         public Integer asInteger() {
             return 6;
         }
@@ -319,6 +493,37 @@ public interface UnsignedNibble {
                 final Supplier<TO> fifteen
         ) {
             return seven.get();
+        }
+
+        @Override
+        public <TO> Iterable<TO> upTo(
+                final Supplier<TO> zero,
+                final Supplier<TO> one,
+                final Supplier<TO> two,
+                final Supplier<TO> three,
+                final Supplier<TO> four,
+                final Supplier<TO> five,
+                final Supplier<TO> six,
+                final Supplier<TO> seven,
+                final Supplier<TO> eight,
+                final Supplier<TO> nine,
+                final Supplier<TO> ten,
+                final Supplier<TO> eleven,
+                final Supplier<TO> twelve,
+                final Supplier<TO> thirteen,
+                final Supplier<TO> fourteen,
+                final Supplier<TO> fifteen
+        ) {
+            return List.of(
+                    zero.get(),
+                    one.get(),
+                    two.get(),
+                    three.get(),
+                    four.get(),
+                    five.get(),
+                    six.get(),
+                    seven.get()
+            );
         }
 
         @Override
@@ -361,6 +566,38 @@ public interface UnsignedNibble {
         }
 
         @Override
+        public <TO> Iterable<TO> upTo(
+                final Supplier<TO> zero,
+                final Supplier<TO> one,
+                final Supplier<TO> two,
+                final Supplier<TO> three,
+                final Supplier<TO> four,
+                final Supplier<TO> five,
+                final Supplier<TO> six,
+                final Supplier<TO> seven,
+                final Supplier<TO> eight,
+                final Supplier<TO> nine,
+                final Supplier<TO> ten,
+                final Supplier<TO> eleven,
+                final Supplier<TO> twelve,
+                final Supplier<TO> thirteen,
+                final Supplier<TO> fourteen,
+                final Supplier<TO> fifteen
+        ) {
+            return List.of(
+                    zero.get(),
+                    one.get(),
+                    two.get(),
+                    three.get(),
+                    four.get(),
+                    five.get(),
+                    six.get(),
+                    seven.get(),
+                    eight.get()
+            );
+        }
+
+        @Override
         public Integer asInteger() {
             return 8;
         }
@@ -397,6 +634,39 @@ public interface UnsignedNibble {
                 final Supplier<TO> fifteen
         ) {
             return nine.get();
+        }
+
+        @Override
+        public <TO> Iterable<TO> upTo(
+                final Supplier<TO> zero,
+                final Supplier<TO> one,
+                final Supplier<TO> two,
+                final Supplier<TO> three,
+                final Supplier<TO> four,
+                final Supplier<TO> five,
+                final Supplier<TO> six,
+                final Supplier<TO> seven,
+                final Supplier<TO> eight,
+                final Supplier<TO> nine,
+                final Supplier<TO> ten,
+                final Supplier<TO> eleven,
+                final Supplier<TO> twelve,
+                final Supplier<TO> thirteen,
+                final Supplier<TO> fourteen,
+                final Supplier<TO> fifteen
+        ) {
+            return List.of(
+                    zero.get(),
+                    one.get(),
+                    two.get(),
+                    three.get(),
+                    four.get(),
+                    five.get(),
+                    six.get(),
+                    seven.get(),
+                    eight.get(),
+                    nine.get()
+            );
         }
 
         @Override
@@ -439,6 +709,40 @@ public interface UnsignedNibble {
         }
 
         @Override
+        public <TO> Iterable<TO> upTo(
+                final Supplier<TO> zero,
+                final Supplier<TO> one,
+                final Supplier<TO> two,
+                final Supplier<TO> three,
+                final Supplier<TO> four,
+                final Supplier<TO> five,
+                final Supplier<TO> six,
+                final Supplier<TO> seven,
+                final Supplier<TO> eight,
+                final Supplier<TO> nine,
+                final Supplier<TO> ten,
+                final Supplier<TO> eleven,
+                final Supplier<TO> twelve,
+                final Supplier<TO> thirteen,
+                final Supplier<TO> fourteen,
+                final Supplier<TO> fifteen
+        ) {
+            return List.of(
+                    zero.get(),
+                    one.get(),
+                    two.get(),
+                    three.get(),
+                    four.get(),
+                    five.get(),
+                    six.get(),
+                    seven.get(),
+                    eight.get(),
+                    nine.get(),
+                    ten.get()
+            );
+        }
+
+        @Override
         public Integer asInteger() {
             return 10;
         }
@@ -475,6 +779,41 @@ public interface UnsignedNibble {
                 final Supplier<TO> fifteen
         ) {
             return eleven.get();
+        }
+
+        @Override
+        public <TO> Iterable<TO> upTo(
+                final Supplier<TO> zero,
+                final Supplier<TO> one,
+                final Supplier<TO> two,
+                final Supplier<TO> three,
+                final Supplier<TO> four,
+                final Supplier<TO> five,
+                final Supplier<TO> six,
+                final Supplier<TO> seven,
+                final Supplier<TO> eight,
+                final Supplier<TO> nine,
+                final Supplier<TO> ten,
+                final Supplier<TO> eleven,
+                final Supplier<TO> twelve,
+                final Supplier<TO> thirteen,
+                final Supplier<TO> fourteen,
+                final Supplier<TO> fifteen
+        ) {
+            return List.of(
+                    zero.get(),
+                    one.get(),
+                    two.get(),
+                    three.get(),
+                    four.get(),
+                    five.get(),
+                    six.get(),
+                    seven.get(),
+                    eight.get(),
+                    nine.get(),
+                    ten.get(),
+                    eleven.get()
+            );
         }
 
         @Override
@@ -517,6 +856,42 @@ public interface UnsignedNibble {
         }
 
         @Override
+        public <TO> Iterable<TO> upTo(
+                final Supplier<TO> zero,
+                final Supplier<TO> one,
+                final Supplier<TO> two,
+                final Supplier<TO> three,
+                final Supplier<TO> four,
+                final Supplier<TO> five,
+                final Supplier<TO> six,
+                final Supplier<TO> seven,
+                final Supplier<TO> eight,
+                final Supplier<TO> nine,
+                final Supplier<TO> ten,
+                final Supplier<TO> eleven,
+                final Supplier<TO> twelve,
+                final Supplier<TO> thirteen,
+                final Supplier<TO> fourteen,
+                final Supplier<TO> fifteen
+        ) {
+            return List.of(
+                    zero.get(),
+                    one.get(),
+                    two.get(),
+                    three.get(),
+                    four.get(),
+                    five.get(),
+                    six.get(),
+                    seven.get(),
+                    eight.get(),
+                    nine.get(),
+                    ten.get(),
+                    eleven.get(),
+                    twelve.get()
+            );
+        }
+
+        @Override
         public Integer asInteger() {
             return 12;
         }
@@ -553,6 +928,43 @@ public interface UnsignedNibble {
                 final Supplier<TO> fifteen
         ) {
             return thirteen.get();
+        }
+
+        @Override
+        public <TO> Iterable<TO> upTo(
+                final Supplier<TO> zero,
+                final Supplier<TO> one,
+                final Supplier<TO> two,
+                final Supplier<TO> three,
+                final Supplier<TO> four,
+                final Supplier<TO> five,
+                final Supplier<TO> six,
+                final Supplier<TO> seven,
+                final Supplier<TO> eight,
+                final Supplier<TO> nine,
+                final Supplier<TO> ten,
+                final Supplier<TO> eleven,
+                final Supplier<TO> twelve,
+                final Supplier<TO> thirteen,
+                final Supplier<TO> fourteen,
+                final Supplier<TO> fifteen
+        ) {
+            return List.of(
+                    zero.get(),
+                    one.get(),
+                    two.get(),
+                    three.get(),
+                    four.get(),
+                    five.get(),
+                    six.get(),
+                    seven.get(),
+                    eight.get(),
+                    nine.get(),
+                    ten.get(),
+                    eleven.get(),
+                    twelve.get(),
+                    thirteen.get()
+            );
         }
 
         @Override
@@ -595,6 +1007,44 @@ public interface UnsignedNibble {
         }
 
         @Override
+        public <TO> Iterable<TO> upTo(
+                final Supplier<TO> zero,
+                final Supplier<TO> one,
+                final Supplier<TO> two,
+                final Supplier<TO> three,
+                final Supplier<TO> four,
+                final Supplier<TO> five,
+                final Supplier<TO> six,
+                final Supplier<TO> seven,
+                final Supplier<TO> eight,
+                final Supplier<TO> nine,
+                final Supplier<TO> ten,
+                final Supplier<TO> eleven,
+                final Supplier<TO> twelve,
+                final Supplier<TO> thirteen,
+                final Supplier<TO> fourteen,
+                final Supplier<TO> fifteen
+        ) {
+            return List.of(
+                    zero.get(),
+                    one.get(),
+                    two.get(),
+                    three.get(),
+                    four.get(),
+                    five.get(),
+                    six.get(),
+                    seven.get(),
+                    eight.get(),
+                    nine.get(),
+                    ten.get(),
+                    eleven.get(),
+                    twelve.get(),
+                    thirteen.get(),
+                    fourteen.get()
+            );
+        }
+
+        @Override
         public Integer asInteger() {
             return 14;
         }
@@ -631,6 +1081,45 @@ public interface UnsignedNibble {
                 final Supplier<TO> fifteen
         ) {
             return fifteen.get();
+        }
+
+        @Override
+        public <TO> Iterable<TO> upTo(
+                final Supplier<TO> zero,
+                final Supplier<TO> one,
+                final Supplier<TO> two,
+                final Supplier<TO> three,
+                final Supplier<TO> four,
+                final Supplier<TO> five,
+                final Supplier<TO> six,
+                final Supplier<TO> seven,
+                final Supplier<TO> eight,
+                final Supplier<TO> nine,
+                final Supplier<TO> ten,
+                final Supplier<TO> eleven,
+                final Supplier<TO> twelve,
+                final Supplier<TO> thirteen,
+                final Supplier<TO> fourteen,
+                final Supplier<TO> fifteen
+        ) {
+            return List.of(
+                    zero.get(),
+                    one.get(),
+                    two.get(),
+                    three.get(),
+                    four.get(),
+                    five.get(),
+                    six.get(),
+                    seven.get(),
+                    eight.get(),
+                    nine.get(),
+                    ten.get(),
+                    eleven.get(),
+                    twelve.get(),
+                    thirteen.get(),
+                    fourteen.get(),
+                    fifteen.get()
+            );
         }
 
         @Override
