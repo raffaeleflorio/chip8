@@ -55,7 +55,7 @@ public final class Draw implements Instruction {
         for (var x = 0; x < this.spriteHeight.asInteger(); x++) {
             var row = memory.value(registers.i().value().sum(new UnsignedShort.From(x)));
             for (var y = 0; y < SPRITE_WIDTH; y++) {
-                var coordinate = new Display.Coordinate(x, y);
+                var coordinate = this.coordinate(registers, x, y);
                 row.mostSignificantBit().ifOneOrElse(
                         () -> result.add(coordinate),
                         () -> {
@@ -65,6 +65,21 @@ public final class Draw implements Instruction {
             }
         }
         return result;
+    }
+
+    private Display.Coordinate coordinate(final Cpu.Registers registers, final Integer x, final Integer y) {
+        return new Display.Coordinate(
+                this.firstRegisterValue(registers).sum(new UnsignedByte.From(x)).asInteger(),
+                this.secondRegisterValue(registers).sum(new UnsignedByte.From(y)).asInteger()
+        );
+    }
+
+    private UnsignedByte firstRegisterValue(final Cpu.Registers registers) {
+        return registers.vX(this.firstRegisterId).value();
+    }
+
+    private UnsignedByte secondRegisterValue(final Cpu.Registers registers) {
+        return registers.vX(this.secondRegisterId).value();
     }
 
     @Override
