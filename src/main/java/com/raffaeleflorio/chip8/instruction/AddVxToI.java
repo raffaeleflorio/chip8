@@ -2,6 +2,7 @@ package com.raffaeleflorio.chip8.instruction;
 
 import com.raffaeleflorio.chip8.Cpu;
 import com.raffaeleflorio.chip8.Instruction;
+import com.raffaeleflorio.chip8.Memory;
 import com.raffaeleflorio.chip8.Peripherals;
 import com.raffaeleflorio.chip8.Stack;
 import com.raffaeleflorio.chip8.UnsignedByte;
@@ -19,7 +20,12 @@ public final class AddVxToI implements Instruction {
     }
 
     @Override
-    public void execute(final Cpu.Registers registers, final Stack stack, final Peripherals peripherals) {
+    public void execute(
+            final Cpu.Registers registers,
+            final Stack stack,
+            final Memory memory,
+            final Peripherals peripherals
+    ) {
         registers.i().add(registers.vX(this.registerId).value().asUnsignedShort());
     }
 
