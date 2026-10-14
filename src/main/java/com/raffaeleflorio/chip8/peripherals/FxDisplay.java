@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 
 import java.util.Set;
 
-public final class FxDisplay implements Display {
+final class FxDisplay implements Display {
 
     private final static Integer COLUMNS = 64;
     private final static Integer ROWS = 32;
@@ -20,7 +20,7 @@ public final class FxDisplay implements Display {
 
     private final Stage stage;
 
-    public FxDisplay() {
+    FxDisplay() {
         this(new Stage());
     }
 
