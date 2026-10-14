@@ -52,9 +52,9 @@ public final class Draw implements Instruction {
 
     private Set<Display.Coordinate> coordinates(final Cpu.Registers registers, final Memory memory) {
         var result = new HashSet<Display.Coordinate>();
-        for (var x = 0; x < this.spriteHeight.asInteger(); x++) {
-            var row = memory.value(registers.i().value().sum(new UnsignedShort.From(x)));
-            for (var y = 0; y < SPRITE_WIDTH; y++) {
+        for (var y = 0; y < this.spriteHeight.asInteger(); y++) {
+            var row = memory.value(registers.i().value().sum(new UnsignedShort.From(y)));
+            for (var x = 0; x < SPRITE_WIDTH; x++) {
                 var coordinate = this.coordinate(registers, x, y);
                 row.mostSignificantBit().ifOneOrElse(
                         () -> result.add(coordinate),
