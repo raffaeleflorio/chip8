@@ -1,6 +1,7 @@
 package com.raffaeleflorio.chip8.peripherals;
 
 import com.raffaeleflorio.chip8.Display;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
@@ -19,30 +20,23 @@ public final class FxDisplay implements Display {
 
     private final Stage stage;
 
-    public FxDisplay() {
-        this(new Stage());
-    }
-
     public FxDisplay(final Stage stage) {
         this.stage = stage;
     }
 
     @Override
     public void on() {
-        if (!this.initialized()) {
-            this.clear();
-            this.stage.setResizable(false);
-        }
-        this.stage.show();
+        Platform.runLater(() -> {
+            if (!this.initialized()) {
+                this.stage.setScene(this.blankScene());
+                this.stage.setResizable(false);
+            }
+            this.stage.show();
+        });
     }
 
     private Boolean initialized() {
         return this.stage.getScene() != null;
-    }
-
-    @Override
-    public void clear() {
-        this.stage.setScene(this.blankScene());
     }
 
     private Scene blankScene() {
@@ -55,32 +49,39 @@ public final class FxDisplay implements Display {
         return new Scene(root);
     }
 
+    @Override
+    public void clear() {
+        Platform.runLater(() -> this.stage.setScene(this.blankScene()));
+    }
+
     private Rectangle turnedOffPixel() {
         return new Rectangle(PIXEL_SIZE, PIXEL_SIZE, PIXEL_OFF_COLOR);
     }
 
     @Override
     public void off() {
-        this.stage.hide();
+        Platform.runLater(this.stage::hide);
     }
 
     @Override
     public void xor(final Set<Coordinate> coordinates, final Runnable whenCollision, final Runnable whenNoCollision) {
-        var collision = false;
-        for (var coordinate : coordinates) {
-            var pixel = this.pixel(coordinate.x(), coordinate.y());
-            if (this.on(pixel)) {
-                this.turnOff(pixel);
-                collision = true;
-            } else {
-                this.turnOn(pixel);
+        Platform.runLater(() -> {
+            var collision = false;
+            for (var coordinate : coordinates) {
+                var pixel = this.pixel(coordinate.x(), coordinate.y());
+                if (this.on(pixel)) {
+                    this.turnOff(pixel);
+                    collision = true;
+                } else {
+                    this.turnOn(pixel);
+                }
             }
-        }
-        if (collision) {
-            whenCollision.run();
-        } else {
-            whenNoCollision.run();
-        }
+            if (collision) {
+                whenCollision.run();
+            } else {
+                whenNoCollision.run();
+            }
+        });
     }
 
     private Rectangle pixel(final Integer x, final Integer y) {
