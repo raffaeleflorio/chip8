@@ -20,7 +20,11 @@ public final class FxDisplay implements Display {
 
     private final Stage stage;
 
-    public FxDisplay(final Stage stage) {
+    public FxDisplay() {
+        this(new Stage());
+    }
+
+    FxDisplay(final Stage stage) {
         this.stage = stage;
     }
 
