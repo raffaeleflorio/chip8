@@ -3,7 +3,7 @@ package com.raffaeleflorio.chip8.peripherals;
 import com.raffaeleflorio.chip8.Timer;
 import com.raffaeleflorio.chip8.UnsignedByte;
 
-final class PeriodicTimerValueDecrease implements Runnable {
+final class PeriodicValueDecreaseThread extends Thread {
 
     private final static UnsignedByte ZERO = new UnsignedByte.From(0);
     private final static UnsignedByte ONE = new UnsignedByte.From(1);
@@ -11,7 +11,7 @@ final class PeriodicTimerValueDecrease implements Runnable {
     private final Timer timer;
     private final Integer frequencyHz;
 
-    PeriodicTimerValueDecrease(final Timer timer, final Integer frequencyHz) {
+    PeriodicValueDecreaseThread(final Timer timer, final Integer frequencyHz) {
         this.timer = timer;
         this.frequencyHz = frequencyHz;
     }

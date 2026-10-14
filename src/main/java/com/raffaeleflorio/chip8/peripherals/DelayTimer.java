@@ -9,7 +9,7 @@ final class DelayTimer implements Timer {
     private final static UnsignedByte ZERO = new UnsignedByte.From(0);
 
     private UnsignedByte value;
-    private Thread decreasingValueThread;
+    private Thread valueDecreaseThread;
 
     DelayTimer() {
         this(ZERO);
@@ -28,9 +28,9 @@ final class DelayTimer implements Timer {
     public synchronized void value(final UnsignedByte value) {
         var previousValue = this.value;
         this.value = value;
-        if (this.decreasingValueThread == null) {
-            this.decreasingValueThread = new Thread(new PeriodicTimerValueDecrease(this, FREQUENCY_HZ));
-            this.decreasingValueThread.start();
+        if (this.valueDecreaseThread == null) {
+            this.valueDecreaseThread = new PeriodicValueDecreaseThread(this, FREQUENCY_HZ);
+            this.valueDecreaseThread.start();
         } else if (previousValue.equals(ZERO) && !this.value.equals(ZERO)) {
             this.notify();
         }
