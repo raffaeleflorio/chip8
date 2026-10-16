@@ -56,7 +56,9 @@ public interface UnsignedByte {
 
     Integer asInteger();
 
-    UnsignedShort asUnsignedShort();
+    default UnsignedShort asUnsignedShort() {
+        return new UnsignedShort.From(this.asInteger());
+    }
 
     final class From implements UnsignedByte {
 
@@ -136,12 +138,6 @@ public interface UnsignedByte {
             } else {
                 whenNotUnderflowed.run();
             }
-        }
-
-
-        @Override
-        public UnsignedShort asUnsignedShort() {
-            return new UnsignedShort.From(this.asInteger());
         }
 
         @Override

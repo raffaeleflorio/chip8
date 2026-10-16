@@ -43,6 +43,10 @@ public interface UnsignedNibble {
             Supplier<TO> fifteen
     );
 
+    default UnsignedByte asUnsignedByte() {
+        return new UnsignedByte.From(this.asInteger());
+    }
+
     Integer asInteger();
 
     final class Zero implements UnsignedNibble {
