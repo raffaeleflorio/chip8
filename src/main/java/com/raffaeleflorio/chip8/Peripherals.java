@@ -5,4 +5,6 @@ public interface Peripherals {
     Display display();
 
     Timer delayTimer();
+
+    HexKeyboard hexKeyboard();
 }
