@@ -19,20 +19,20 @@ public final class SetVxToMaskedRand implements Instruction {
     private final static Integer MAX_RAND_EXCLUSIVE = 256;
 
     private final UnsignedNibble registerId; // X
-    private final UnsignedByte value; // NN
+    private final UnsignedByte mask; // NN
     private final Random random;
 
-    public SetVxToMaskedRand(final UnsignedNibble registerId, final UnsignedByte value) {
+    public SetVxToMaskedRand(final UnsignedNibble registerId, final UnsignedByte mask) {
         this(
                 registerId,
-                value,
+                mask,
                 ThreadLocalRandom.current()
         );
     }
 
-    SetVxToMaskedRand(final UnsignedNibble registerId, final UnsignedByte value, final Random random) {
+    SetVxToMaskedRand(final UnsignedNibble registerId, final UnsignedByte mask, final Random random) {
         this.registerId = registerId;
-        this.value = value;
+        this.mask = mask;
         this.random = random;
     }
 
@@ -43,7 +43,7 @@ public final class SetVxToMaskedRand implements Instruction {
             final Memory memory,
             final Peripherals peripherals
     ) {
-        this.register(registers).value(this.value.and(this.randomUnsignedByte()));
+        this.register(registers).value(this.mask.and(this.randomUnsignedByte()));
     }
 
     private Cpu.Register<UnsignedByte> register(final Cpu.Registers registers) {
@@ -56,6 +56,6 @@ public final class SetVxToMaskedRand implements Instruction {
 
     @Override
     public String toString() {
-        return "C%X%02X".formatted(this.registerId.asInteger(), this.value.asInteger());
+        return "C%X%02X".formatted(this.registerId.asInteger(), this.mask.asInteger());
     }
 }

@@ -16,6 +16,7 @@ import com.raffaeleflorio.chip8.instruction.RegDump;
 import com.raffaeleflorio.chip8.instruction.SetDelay;
 import com.raffaeleflorio.chip8.instruction.SetI;
 import com.raffaeleflorio.chip8.instruction.SetVx;
+import com.raffaeleflorio.chip8.instruction.SetVxToMaskedRand;
 import com.raffaeleflorio.chip8.instruction.SubVyFromVx;
 import com.raffaeleflorio.chip8.memory.DefaultMemory;
 import com.raffaeleflorio.chip8.peripherals.DefaultPeripherals;
@@ -65,8 +66,8 @@ public final class Heart extends Application {
                     new SetVx(new UnsignedNibble.Eleven(), new UnsignedByte.From(0b10000000)),
                     new RegDump(new UnsignedNibble.Eleven()),
 
-                    new SetVx(new UnsignedNibble.Four(), new UnsignedByte.From(0x0)),
-                    new SetVx(new UnsignedNibble.Five(), new UnsignedByte.From(0x0)),
+                    new SetVxToMaskedRand(new UnsignedNibble.Four(), new UnsignedByte.From(0xF)),
+                    new SetVxToMaskedRand(new UnsignedNibble.Five(), new UnsignedByte.From(0xF)),
 
                     new SetVx(new UnsignedNibble.Six(), new UnsignedByte.From(0x0)),
                     new SetVx(new UnsignedNibble.Seven(), new UnsignedByte.From(0x0)),
