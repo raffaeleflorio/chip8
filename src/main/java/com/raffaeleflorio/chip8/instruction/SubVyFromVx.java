@@ -32,7 +32,7 @@ public final class SubVyFromVx implements Instruction {
             final Peripherals peripherals
     ) {
         var firstRegister = this.firstRegister(registers);
-        firstRegister(registers).sub(this.secondRegisterValue(registers));
+        firstRegister.sub(this.secondRegisterValue(registers));
         firstRegister.value().ifUnderflowedOrElse(
                 () -> registers.vF().value(ZERO),
                 () -> registers.vF().value(ONE)
