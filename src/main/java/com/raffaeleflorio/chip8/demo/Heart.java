@@ -1,5 +1,8 @@
-package com.raffaeleflorio.chip8;
+package com.raffaeleflorio.chip8.demo;
 
+import com.raffaeleflorio.chip8.UnsignedByte;
+import com.raffaeleflorio.chip8.UnsignedNibble;
+import com.raffaeleflorio.chip8.UnsignedShort;
 import com.raffaeleflorio.chip8.cpu.DefaultCpu;
 import com.raffaeleflorio.chip8.instruction.AddToVx;
 import com.raffaeleflorio.chip8.instruction.AddVyToVx;
