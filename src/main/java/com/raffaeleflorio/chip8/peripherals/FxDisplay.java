@@ -55,7 +55,16 @@ final class FxDisplay implements Display {
 
     @Override
     public void clear() {
-        Platform.runLater(() -> this.stage.setScene(this.blankScene()));
+        Platform.runLater(() -> {
+            for (var x = 0; x < COLUMNS; x++) {
+                for (var y = 0; y < ROWS; y++) {
+                    var pixel = this.pixel(x, y);
+                    if (this.on(pixel)) {
+                        this.turnOff(pixel);
+                    }
+                }
+            }
+        });
     }
 
     private Rectangle turnedOffPixel() {
