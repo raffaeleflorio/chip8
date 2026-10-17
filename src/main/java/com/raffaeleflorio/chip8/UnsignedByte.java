@@ -1,5 +1,7 @@
 package com.raffaeleflorio.chip8;
 
+import java.util.List;
+
 public interface UnsignedByte {
 
     UnsignedByte sum(UnsignedByte other);
@@ -58,6 +60,14 @@ public interface UnsignedByte {
 
     default UnsignedShort asUnsignedShort() {
         return new UnsignedShort.From(this.asInteger());
+    }
+
+    default List<UnsignedByte> asBCD() {
+        return List.of(
+                new UnsignedByte.From(this.asInteger() / 100),
+                new UnsignedByte.From((this.asInteger() % 100) / 10),
+                new UnsignedByte.From(this.asInteger() % 10)
+        );
     }
 
     final class From implements UnsignedByte {

@@ -194,4 +194,16 @@ class UnsignedByteTest {
 
         assertThat(first).isEqualTo(second);
     }
+
+    @Test
+    void its_BCD_representation_is_hundreds_tens_and_ones() {
+        var ubyte = new UnsignedByte.From(123);
+
+        assertThat(ubyte.asBCD())
+                .containsExactly(
+                        new UnsignedByte.From(0x1),
+                        new UnsignedByte.From(0x2),
+                        new UnsignedByte.From(0x3)
+                );
+    }
 }
