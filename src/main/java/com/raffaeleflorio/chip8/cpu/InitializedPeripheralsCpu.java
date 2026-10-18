@@ -19,9 +19,15 @@ final class InitializedPeripheralsCpu implements Cpu {
 
     @Override
     public void execute(final UnsignedShort initialPC, final List<Instruction> instructions) {
+        this.initialized(
+                () -> this.origin.execute(initialPC, instructions)
+        );
+    }
+
+    private void initialized(final Runnable runnable) {
         this.peripherals.display().on();
         this.peripherals.hexKeyboard().on();
-        this.origin.execute(initialPC, instructions);
+        runnable.run();
         this.peripherals.hexKeyboard().off();
         this.peripherals.display().off();
     }
