@@ -2,6 +2,7 @@ package com.raffaeleflorio.chip8.cpu;
 
 import com.raffaeleflorio.chip8.Cpu;
 import com.raffaeleflorio.chip8.Instruction;
+import com.raffaeleflorio.chip8.UnsignedShort;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ final class SynchronizedCpu implements Cpu {
     }
 
     @Override
-    public synchronized void execute(final List<Instruction> instructions) {
-        this.origin.execute(instructions);
+    public synchronized void execute(final UnsignedShort initialPC, final List<Instruction> instructions) {
+        this.origin.execute(initialPC, instructions);
     }
 }

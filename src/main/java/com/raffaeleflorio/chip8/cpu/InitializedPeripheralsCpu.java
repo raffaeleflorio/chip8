@@ -3,6 +3,7 @@ package com.raffaeleflorio.chip8.cpu;
 import com.raffaeleflorio.chip8.Cpu;
 import com.raffaeleflorio.chip8.Instruction;
 import com.raffaeleflorio.chip8.Peripherals;
+import com.raffaeleflorio.chip8.UnsignedShort;
 
 import java.util.List;
 
@@ -17,10 +18,10 @@ final class InitializedPeripheralsCpu implements Cpu {
     }
 
     @Override
-    public void execute(final List<Instruction> instructions) {
+    public void execute(final UnsignedShort initialPC, final List<Instruction> instructions) {
         this.peripherals.display().on();
         this.peripherals.hexKeyboard().on();
-        this.origin.execute(instructions);
+        this.origin.execute(initialPC, instructions);
         this.peripherals.hexKeyboard().off();
         this.peripherals.display().off();
     }

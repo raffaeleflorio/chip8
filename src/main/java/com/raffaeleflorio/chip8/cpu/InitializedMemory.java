@@ -168,12 +168,12 @@ final class InitializedMemory implements Cpu {
     }
 
     @Override
-    public void execute(final List<Instruction> instructions) {
-        this.initializeSprites();
-        this.origin.execute(instructions);
+    public void execute(final UnsignedShort initialPC, final List<Instruction> instructions) {
+        this.loadSprites();
+        this.origin.execute(initialPC, instructions);
     }
 
-    private void initializeSprites() {
+    private void loadSprites() {
         for (var spriteNr = 0; spriteNr < 16; spriteNr++) {
             var sprite = this.sprite(spriteNr);
             for (var rowNr = 0; rowNr < SPRITE_HEIGHT; rowNr++) {

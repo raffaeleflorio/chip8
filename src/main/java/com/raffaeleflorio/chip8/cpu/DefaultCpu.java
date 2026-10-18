@@ -5,6 +5,7 @@ import com.raffaeleflorio.chip8.Instruction;
 import com.raffaeleflorio.chip8.Memory;
 import com.raffaeleflorio.chip8.Peripherals;
 import com.raffaeleflorio.chip8.Stack;
+import com.raffaeleflorio.chip8.UnsignedShort;
 
 import java.util.List;
 
@@ -39,7 +40,7 @@ public final class DefaultCpu implements Cpu {
     }
 
     @Override
-    public void execute(final List<Instruction> instructions) {
-        this.origin.execute(instructions);
+    public void execute(final UnsignedShort initialPC, final List<Instruction> instructions) {
+        this.origin.execute(initialPC, instructions);
     }
 }
