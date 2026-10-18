@@ -21,7 +21,7 @@ public final class DefaultCpu implements Cpu {
         this(
                 new SynchronizedCpu(
                         new InitializedMemory(
-                                new InitializedPeripheralsCpu(
+                                new InitializedPeripherals(
                                         new SimpleCpu(
                                                 stack,
                                                 memory,

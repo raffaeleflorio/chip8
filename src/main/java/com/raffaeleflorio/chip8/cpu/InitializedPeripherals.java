@@ -7,12 +7,12 @@ import com.raffaeleflorio.chip8.UnsignedShort;
 
 import java.util.List;
 
-final class InitializedPeripheralsCpu implements Cpu {
+final class InitializedPeripherals implements Cpu {
 
     private final Cpu origin;
     private final Peripherals peripherals;
 
-    InitializedPeripheralsCpu(final Cpu origin, final Peripherals peripherals) {
+    InitializedPeripherals(final Cpu origin, final Peripherals peripherals) {
         this.origin = origin;
         this.peripherals = peripherals;
     }
