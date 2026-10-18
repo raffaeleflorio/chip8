@@ -29,6 +29,11 @@ public final class Goto implements Instruction {
     }
 
     @Override
+    public void ifJumpOrElse(final Runnable whenJump, final Runnable whenNotJump) {
+        whenJump.run();
+    }
+
+    @Override
     public String toString() {
         return "1%03X".formatted(this.address.asInteger());
     }

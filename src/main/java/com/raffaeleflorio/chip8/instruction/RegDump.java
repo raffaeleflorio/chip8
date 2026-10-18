@@ -40,6 +40,11 @@ public final class RegDump implements Instruction {
     }
 
     @Override
+    public void ifJumpOrElse(final Runnable whenJump, final Runnable whenNotJump) {
+        whenNotJump.run();
+    }
+
+    @Override
     public String toString() {
         return "F%X55".formatted(this.lastRegisterId.asInteger());
     }

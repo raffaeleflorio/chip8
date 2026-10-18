@@ -26,11 +26,16 @@ public final class AddVxToI implements Instruction {
             final Memory memory,
             final Peripherals peripherals
     ) {
-        registers.i().add(registers.vX(this.registerId).value().asUnsignedShort());
+        registers.i().add(this.registerValue(registers).asUnsignedShort());
     }
 
     private UnsignedByte registerValue(final Cpu.Registers registers) {
         return registers.vX(this.registerId).value();
+    }
+
+    @Override
+    public void ifJumpOrElse(final Runnable whenJump, final Runnable whenNotJump) {
+        whenNotJump.run();
     }
 
     @Override

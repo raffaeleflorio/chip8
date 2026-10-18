@@ -14,7 +14,7 @@ import com.raffaeleflorio.chip8.UnsignedShort;
  */
 public final class IfVxNeq implements Instruction {
 
-    private final static UnsignedShort FOUR = new UnsignedShort.From(4);
+    private final static UnsignedShort TWO = new UnsignedShort.From(2);
 
     private final UnsignedNibble registerId; // X
     private final UnsignedByte value; // NN
@@ -32,12 +32,17 @@ public final class IfVxNeq implements Instruction {
             final Peripherals peripherals
     ) {
         if (!this.registerValue(registers).equals(this.value)) {
-            registers.pc().add(FOUR);
+            registers.pc().add(TWO);
         }
     }
 
     private UnsignedByte registerValue(final Cpu.Registers registers) {
         return registers.vX(this.registerId).value();
+    }
+
+    @Override
+    public void ifJumpOrElse(final Runnable whenJump, final Runnable whenNotJump) {
+        whenNotJump.run();
     }
 
     @Override

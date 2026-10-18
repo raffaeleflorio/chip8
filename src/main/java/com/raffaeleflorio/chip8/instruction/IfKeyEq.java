@@ -17,7 +17,7 @@ import java.util.Optional;
  */
 public final class IfKeyEq implements Instruction {
 
-    private final static UnsignedShort FOUR = new UnsignedShort.From(4);
+    private final static UnsignedShort TWO = new UnsignedShort.From(2);
 
     private final UnsignedNibble registerId; // X
 
@@ -33,17 +33,17 @@ public final class IfKeyEq implements Instruction {
             final Peripherals peripherals
     ) {
         if (this.keyPressed(registers, peripherals)) {
-            registers.pc().add(FOUR);
+            registers.pc().add(TWO);
         }
     }
 
     private Boolean keyPressed(final Cpu.Registers registers, final Peripherals peripherals) {
-        return this.key(peripherals)
+        return this.keyNow(peripherals)
                 .map(this.registerValue(registers)::equals)
                 .orElse(false);
     }
 
-    private Optional<UnsignedByte> key(final Peripherals peripherals) {
+    private Optional<UnsignedByte> keyNow(final Peripherals peripherals) {
         return peripherals.hexKeyboard().keyNow()
                 .map(HexKeyboard.Key::asUnsignedNibble)
                 .map(UnsignedNibble::asUnsignedByte);
@@ -51,6 +51,11 @@ public final class IfKeyEq implements Instruction {
 
     private UnsignedByte registerValue(final Cpu.Registers registers) {
         return registers.vX(this.registerId).value();
+    }
+
+    @Override
+    public void ifJumpOrElse(final Runnable whenJump, final Runnable whenNotJump) {
+        whenNotJump.run();
     }
 
     @Override

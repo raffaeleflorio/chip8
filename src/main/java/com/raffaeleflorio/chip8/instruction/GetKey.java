@@ -38,6 +38,11 @@ public final class GetKey implements Instruction {
     }
 
     @Override
+    public void ifJumpOrElse(final Runnable whenJump, final Runnable whenNotJump) {
+        whenNotJump.run();
+    }
+
+    @Override
     public String toString() {
         return "F%X0A".formatted(this.registerId.asInteger());
     }

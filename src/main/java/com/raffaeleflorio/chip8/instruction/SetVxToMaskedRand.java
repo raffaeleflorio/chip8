@@ -55,6 +55,11 @@ public final class SetVxToMaskedRand implements Instruction {
     }
 
     @Override
+    public void ifJumpOrElse(final Runnable whenJump, final Runnable whenNotJump) {
+        whenNotJump.run();
+    }
+
+    @Override
     public String toString() {
         return "C%X%02X".formatted(this.registerId.asInteger(), this.mask.asInteger());
     }

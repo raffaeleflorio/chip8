@@ -25,6 +25,11 @@ public final class Return implements Instruction {
     }
 
     @Override
+    public void ifJumpOrElse(final Runnable whenJump, final Runnable whenNotJump) {
+        whenJump.run();
+    }
+
+    @Override
     public String toString() {
         return "00EE";
     }

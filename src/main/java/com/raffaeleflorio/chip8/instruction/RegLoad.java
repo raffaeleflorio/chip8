@@ -39,6 +39,11 @@ public final class RegLoad implements Instruction {
     }
 
     @Override
+    public void ifJumpOrElse(final Runnable whenJump, final Runnable whenNotJump) {
+        whenNotJump.run();
+    }
+
+    @Override
     public String toString() {
         return "F%X65".formatted(this.lastRegisterId.asInteger());
     }

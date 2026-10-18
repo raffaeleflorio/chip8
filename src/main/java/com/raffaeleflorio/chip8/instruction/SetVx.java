@@ -36,6 +36,11 @@ public final class SetVx implements Instruction {
     }
 
     @Override
+    public void ifJumpOrElse(final Runnable whenJump, final Runnable whenNotJump) {
+        whenNotJump.run();
+    }
+
+    @Override
     public String toString() {
         return "6%X%02X".formatted(this.registerId.asInteger(), this.value.asInteger());
     }

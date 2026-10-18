@@ -83,6 +83,11 @@ public final class Draw implements Instruction {
     }
 
     @Override
+    public void ifJumpOrElse(final Runnable whenJump, final Runnable whenNotJump) {
+        whenNotJump.run();
+    }
+
+    @Override
     public String toString() {
         return "D%X%X%X".formatted(
                 this.firstRegisterId.asInteger(),

@@ -30,6 +30,11 @@ public final class Call implements Instruction {
     }
 
     @Override
+    public void ifJumpOrElse(final Runnable whenJump, final Runnable whenNotJump) {
+        whenJump.run();
+    }
+
+    @Override
     public String toString() {
         return "2%03X".formatted(this.subroutine.asInteger());
     }

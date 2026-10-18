@@ -31,6 +31,11 @@ public final class GotoWithOffset implements Instruction {
     }
 
     @Override
+    public void ifJumpOrElse(final Runnable whenJump, final Runnable whenNotJump) {
+        whenJump.run();
+    }
+
+    @Override
     public String toString() {
         return "B%03X".formatted(this.value.asInteger());
     }

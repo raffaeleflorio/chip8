@@ -29,6 +29,11 @@ public final class SetI implements Instruction {
     }
 
     @Override
+    public void ifJumpOrElse(final Runnable whenJump, final Runnable whenNotJump) {
+        whenNotJump.run();
+    }
+
+    @Override
     public String toString() {
         return "A%03X".formatted(this.value.asInteger());
     }

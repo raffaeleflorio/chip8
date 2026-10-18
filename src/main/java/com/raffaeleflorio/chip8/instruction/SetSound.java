@@ -29,6 +29,11 @@ public final class SetSound implements Instruction {
     }
 
     @Override
+    public void ifJumpOrElse(final Runnable whenJump, final Runnable whenNotJump) {
+        whenNotJump.run();
+    }
+
+    @Override
     public String toString() {
         return "F%X18".formatted(this.registerId.asInteger());
     }
