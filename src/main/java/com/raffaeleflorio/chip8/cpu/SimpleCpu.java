@@ -43,11 +43,11 @@ final class SimpleCpu implements Cpu {
     public void execute(final UnsignedShort initialPC, final List<Instruction> instructions) {
         this.registers.pc().value(initialPC);
         while (this.pcValueAsIndex(initialPC) < instructions.size()) {
-            var currentPc = this.registers.pc().value();
-            instructions.get(this.pcValueAsIndex(initialPC)).execute(this.registers, this.stack, this.memory, this.peripherals);
-            if (currentPc.equals(this.registers.pc().value())) {
-                this.registers.pc().add(TWO);
-            }
+            var instruction = instructions.get(this.pcValueAsIndex(initialPC));
+            instruction.execute(this.registers, this.stack, this.memory, this.peripherals);
+            instruction.ifNotJump(
+                    () -> this.registers.pc().add(TWO)
+            );
         }
     }
 
