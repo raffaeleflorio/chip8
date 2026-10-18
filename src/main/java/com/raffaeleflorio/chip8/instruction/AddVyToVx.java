@@ -49,6 +49,11 @@ public final class AddVyToVx implements Instruction {
     }
 
     @Override
+    public void ifJumpOrElse(final Runnable whenJump, final Runnable whenNotJump) {
+        whenNotJump.run();
+    }
+
+    @Override
     public String toString() {
         return "8%X%X4".formatted(this.firstRegisterId.asInteger(), this.secondRegisterId.asInteger());
     }
