@@ -75,7 +75,11 @@ public interface UnsignedByte {
         private final Integer value;
 
         public From() {
-            this(0);
+            this((byte) 0);
+        }
+
+        public From(final Byte value) {
+            this(value.intValue());
         }
 
         public From(final Integer value) {
