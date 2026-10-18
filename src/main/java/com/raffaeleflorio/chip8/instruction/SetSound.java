@@ -10,11 +10,11 @@ import com.raffaeleflorio.chip8.UnsignedNibble;
 /**
  * FX18 opcode: Sets the sound timer to VX
  */
-public final class SetTimer implements Instruction {
+public final class SetSound implements Instruction {
 
     private final UnsignedNibble registerId; // X
 
-    public SetTimer(final UnsignedNibble registerId) {
+    public SetSound(final UnsignedNibble registerId) {
         this.registerId = registerId;
     }
 
