@@ -6,12 +6,10 @@ import java.util.function.Consumer;
 public interface Cpu {
 
     default void execute(Instruction... instructions) {
-        this.execute(new UnsignedShort.From(0x200), List.of(instructions));
+        this.execute(List.of(instructions));
     }
 
-    default void execute(UnsignedShort initialPC, Instruction... instructions) {
-        this.execute(initialPC, List.of(instructions));
-    }
+    void execute(List<Instruction> instructions);
 
     void execute(UnsignedShort initialPC, List<Instruction> instructions);
 

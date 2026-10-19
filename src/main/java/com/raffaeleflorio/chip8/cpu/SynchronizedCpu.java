@@ -15,7 +15,7 @@ final class SynchronizedCpu implements Cpu {
     }
 
     @Override
-    public synchronized void execute(final UnsignedShort initialPC, final List<Instruction> instructions) {
-        this.origin.execute(initialPC, instructions);
+    public synchronized void execute(final List<Instruction> instructions) {
+        this.origin.execute(instructions);
     }
 }

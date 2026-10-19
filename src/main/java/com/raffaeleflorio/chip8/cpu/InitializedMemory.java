@@ -168,9 +168,9 @@ final class InitializedMemory implements Cpu {
     }
 
     @Override
-    public void execute(final UnsignedShort initialPC, final List<Instruction> instructions) {
+    public void execute(final List<Instruction> instructions) {
         this.initialized(
-                () -> this.origin.execute(initialPC, instructions)
+                () -> this.origin.execute(instructions)
         );
     }
 

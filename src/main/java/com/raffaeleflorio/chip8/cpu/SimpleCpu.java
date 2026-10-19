@@ -11,6 +11,7 @@ import java.util.List;
 
 final class SimpleCpu implements Cpu {
 
+    private final static UnsignedShort ZERO = new UnsignedShort.From(0);
     private final static UnsignedShort TWO = new UnsignedShort.From(2);
 
     private final Stack stack;
@@ -37,13 +38,12 @@ final class SimpleCpu implements Cpu {
         this.memory = memory;
         this.peripherals = peripherals;
         this.registers = registers;
-    }
 
     @Override
-    public void execute(final UnsignedShort initialPC, final List<Instruction> instructions) {
-        this.registers.pc().value(initialPC);
-        while (this.pcValueAsIndex(initialPC) < instructions.size()) {
-            var instruction = instructions.get(this.pcValueAsIndex(initialPC));
+    public void execute(final List<Instruction> instructions) {
+        this.registers.pc().value(ZERO);
+        for (var i = this.pcValueAsIndex(); i < instructions.size(); i = this.pcValueAsIndex()) {
+            var instruction = instructions.get(i);
             instruction.execute(this.registers, this.stack, this.memory, this.peripherals);
             instruction.ifNotJump(
                     () -> this.registers.pc().add(TWO)
@@ -51,7 +51,7 @@ final class SimpleCpu implements Cpu {
         }
     }
 
-    private Integer pcValueAsIndex(final UnsignedShort initialPC) {
-        return (this.registers.pc().value().asInteger() - initialPC.asInteger()) / 2;
+    private Integer pcValueAsIndex() {
+        return this.registers.pc().value().asInteger() / 2;
     }
 }
