@@ -115,6 +115,20 @@ class UnsignedByteTest {
     }
 
     @Test
+    void most_significant_nibble_is_the_leftmost() {
+        var ubyte = new UnsignedByte.From(0xAB);
+
+        assertThat(ubyte.mostSignificantNibble()).isEqualTo(new UnsignedNibble.Ten());
+    }
+
+    @Test
+    void least_significant_nibble_is_the_rightmost() {
+        var ubyte = new UnsignedByte.From(0xAB);
+
+        assertThat(ubyte.leastSignificantNibble()).isEqualTo(new UnsignedNibble.Eleven());
+    }
+
+    @Test
     void its_unsigned_short_representation_has_the_same_integer_representation() {
         var ubyte = new UnsignedByte.From(42);
 

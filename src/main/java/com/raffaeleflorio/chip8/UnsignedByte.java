@@ -22,6 +22,10 @@ public interface UnsignedByte {
 
     Bit leastSignificatBit();
 
+    UnsignedNibble mostSignificantNibble();
+
+    UnsignedNibble leastSignificantNibble();
+
     default void ifOverflowedThrows(final RuntimeException exception) {
         this.ifOverflowed(() -> {
                     throw exception;
@@ -134,6 +138,37 @@ public interface UnsignedByte {
         @Override
         public Bit leastSignificatBit() {
             return (this.asInteger() & 0x1) == 0x1 ? new Bit.One() : new Bit.Zero();
+        }
+
+        @Override
+        public UnsignedNibble mostSignificantNibble() {
+            return this.nibble((this.asInteger() & 0xF0) >> 4);
+        }
+
+        private UnsignedNibble nibble(final Integer nibble) {
+            return switch (nibble) {
+                case 0 -> new UnsignedNibble.Zero();
+                case 1 -> new UnsignedNibble.One();
+                case 2 -> new UnsignedNibble.Two();
+                case 3 -> new UnsignedNibble.Three();
+                case 4 -> new UnsignedNibble.Four();
+                case 5 -> new UnsignedNibble.Five();
+                case 6 -> new UnsignedNibble.Six();
+                case 7 -> new UnsignedNibble.Seven();
+                case 8 -> new UnsignedNibble.Eight();
+                case 9 -> new UnsignedNibble.Nine();
+                case 10 -> new UnsignedNibble.Ten();
+                case 11 -> new UnsignedNibble.Eleven();
+                case 12 -> new UnsignedNibble.Twelve();
+                case 13 -> new UnsignedNibble.Thirteen();
+                case 14 -> new UnsignedNibble.Fourteen();
+                default -> new UnsignedNibble.Fifteen();
+            };
+        }
+
+        @Override
+        public UnsignedNibble leastSignificantNibble() {
+            return this.nibble(this.asInteger() & 0xF);
         }
 
         @Override
