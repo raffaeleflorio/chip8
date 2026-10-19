@@ -23,6 +23,16 @@ class UnsignedShortTest {
     }
 
     @Test
+    void concatenates_two_bytes() {
+        var ushort = new UnsignedShort.From(
+                new UnsignedByte.From(0x12),
+                new UnsignedByte.From(0x34)
+        );
+
+        assertThat(ushort.asInteger()).isEqualTo(0x1234);
+    }
+
+    @Test
     void sums_two_numbers_arithmetically() {
         var first = new UnsignedShort.From(5);
         var second = new UnsignedShort.From(7);

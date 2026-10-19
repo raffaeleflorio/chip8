@@ -31,6 +31,10 @@ public interface UnsignedShort {
             this(0);
         }
 
+        public From(final UnsignedByte mostSignificantByte, final UnsignedByte leastSignificantByte) {
+            this((mostSignificantByte.asInteger() << 8) + leastSignificantByte.asInteger());
+        }
+
         public From(final Integer value) {
             this.value = value;
         }
