@@ -156,7 +156,7 @@ public final class Chip8OpCodeTable implements OpCodeTable {
     );
 
     private static Boolean startsWith(final UnsignedShort opcode, final Integer prefix) {
-        return opcode.and(new UnsignedShort.From(0xF000)).equals(new UnsignedShort.From(prefix));
+        return opcode.and(new UnsignedShort.From(0xF000)).equals(new UnsignedShort.From(prefix << 12));
     }
 
     private static Boolean is(final UnsignedShort opcode, final Integer value) {
