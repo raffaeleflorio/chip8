@@ -94,7 +94,7 @@ public final class Heart extends Application {
                     new SetDelay(new UnsignedNibble.Eight()),
                     new GetDelay(new UnsignedNibble.Eight()),
                     new IfVxEq(new UnsignedNibble.Eight(), new UnsignedByte.From(0x0)),
-                    new Goto(new UnsignedShort.From(0x200 + 0x5E)),
+                    new Goto(new UnsignedShort.From(0x5E)),
 
                     new IfVxNeq(new UnsignedNibble.Four(), new UnsignedByte.From(0x30)),
                     new SetVx(new UnsignedNibble.Six(), new UnsignedByte.From(0x1)),
@@ -116,7 +116,7 @@ public final class Heart extends Application {
                     new IfVxNeq(new UnsignedNibble.Seven(), new UnsignedByte.From(0x1)),
                     new SubVyFromVx(new UnsignedNibble.Five(), new UnsignedNibble.Seven()),
 
-                    new Goto(new UnsignedShort.From(0x200 + 0x40))
+                    new Goto(new UnsignedShort.From(0x40))
             );
         }).start();
     }
