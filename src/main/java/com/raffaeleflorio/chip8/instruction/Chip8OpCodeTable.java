@@ -110,11 +110,11 @@ public final class Chip8OpCodeTable implements OpCodeTable {
                     opcode -> new Draw(vX(opcode), vY(opcode), nibble(opcode))
             ),
             Map.entry(
-                    opcode -> startsWith(opcode, 0xE) && endsWith(opcode, 0xFF, 0x9E),
+                    opcode -> startsWith(opcode, 0xE) && endsWith(opcode, 0x9E),
                     opcode -> new IfKeyEq(vX(opcode))
             ),
             Map.entry(
-                    opcode -> startsWith(opcode, 0xE) && endsWith(opcode, 0xFF, 0xA1),
+                    opcode -> startsWith(opcode, 0xE) && endsWith(opcode, 0xA1),
                     opcode -> new IfKeyNeq(vX(opcode))
             ),
             Map.entry(
@@ -126,31 +126,31 @@ public final class Chip8OpCodeTable implements OpCodeTable {
                     opcode -> new GetKey(vX(opcode))
             ),
             Map.entry(
-                    opcode -> startsWith(opcode, 0xF) && endsWith(opcode, 0xFF, 0x15),
+                    opcode -> startsWith(opcode, 0xF) && endsWith(opcode, 0x15),
                     opcode -> new SetDelay(vX(opcode))
             ),
             Map.entry(
-                    opcode -> startsWith(opcode, 0xF) && endsWith(opcode, 0xFF, 0x18),
+                    opcode -> startsWith(opcode, 0xF) && endsWith(opcode, 0x18),
                     opcode -> new SetSound(vX(opcode))
             ),
             Map.entry(
-                    opcode -> startsWith(opcode, 0xF) && endsWith(opcode, 0xFF, 0x1E),
+                    opcode -> startsWith(opcode, 0xF) && endsWith(opcode, 0x1E),
                     opcode -> new AddVxToI(vX(opcode))
             ),
             Map.entry(
-                    opcode -> startsWith(opcode, 0xF) && endsWith(opcode, 0xFF, 0x29),
+                    opcode -> startsWith(opcode, 0xF) && endsWith(opcode, 0x29),
                     opcode -> new SpriteAddr(vX(opcode))
             ),
             Map.entry(
-                    opcode -> startsWith(opcode, 0xF) && endsWith(opcode, 0xFF, 0x33),
+                    opcode -> startsWith(opcode, 0xF) && endsWith(opcode, 0x33),
                     opcode -> new BCDVx(vX(opcode))
             ),
             Map.entry(
-                    opcode -> startsWith(opcode, 0xF) && endsWith(opcode, 0xFF, 0x55),
+                    opcode -> startsWith(opcode, 0xF) && endsWith(opcode, 0x55),
                     opcode -> new RegDump(vX(opcode))
             ),
             Map.entry(
-                    opcode -> startsWith(opcode, 0xF) && endsWith(opcode, 0xFF, 0x65),
+                    opcode -> startsWith(opcode, 0xF) && endsWith(opcode, 0x65),
                     opcode -> new RegLoad(vX(opcode))
             )
     );
@@ -176,7 +176,10 @@ public final class Chip8OpCodeTable implements OpCodeTable {
     }
 
     private static Boolean endsWith(final UnsignedShort opcode, final Integer suffix) {
-        return endsWith(opcode, 0xF, suffix);
+        if (suffix < 0x10) {
+            return endsWith(opcode, 0xF, suffix);
+        }
+        return endsWith(opcode, 0xFF, suffix);
     }
 
     private static Boolean endsWith(final UnsignedShort opcode, final Integer mask, final Integer suffix) {
