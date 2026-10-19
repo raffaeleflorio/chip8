@@ -4,6 +4,12 @@ public interface UnsignedShort {
 
     UnsignedShort sum(UnsignedShort other);
 
+    UnsignedShort and(UnsignedShort other);
+
+    UnsignedByte mostSignificantByte();
+
+    UnsignedByte leastSignificantByte();
+
     default void ifOverflowedThrows(final RuntimeException exception) {
         this.ifOverflowed(() -> {
                     throw exception;
@@ -42,6 +48,21 @@ public interface UnsignedShort {
         @Override
         public UnsignedShort sum(final UnsignedShort other) {
             return new UnsignedShort.From(this.asInteger() + other.asInteger());
+        }
+
+        @Override
+        public UnsignedShort and(final UnsignedShort other) {
+            return new UnsignedShort.From(this.asInteger() & other.asInteger());
+        }
+
+        @Override
+        public UnsignedByte mostSignificantByte() {
+            return new UnsignedByte.From((this.asInteger() & 0xFF00) >> 8);
+        }
+
+        @Override
+        public UnsignedByte leastSignificantByte() {
+            return new UnsignedByte.From(this.asInteger() & 0xFF);
         }
 
         @Override

@@ -41,6 +41,28 @@ class UnsignedShortTest {
     }
 
     @Test
+    void applies_bitwise_and_logic() {
+        var first = new UnsignedShort.From(0b10101010);
+        var second = new UnsignedShort.From(0b11111111);
+
+        assertThat(first.and(second).asInteger()).isEqualTo(0b10101010);
+    }
+
+    @Test
+    void most_significant_byte_is_the_leftmost() {
+        var ushort = new UnsignedShort.From(0xABCD);
+
+        assertThat(ushort.mostSignificantByte()).isEqualTo(new UnsignedByte.From(0xAB));
+    }
+
+    @Test
+    void least_significant_byte_is_the_rightmost() {
+        var ushort = new UnsignedShort.From(0xABCD);
+
+        assertThat(ushort.leastSignificantByte()).isEqualTo(new UnsignedByte.From(0xCD));
+    }
+
+    @Test
     void overflows_when_sum_is_greater_than_the_maximum_value() {
         var first = new UnsignedShort.From(65530);
         var second = new UnsignedShort.From(10);
