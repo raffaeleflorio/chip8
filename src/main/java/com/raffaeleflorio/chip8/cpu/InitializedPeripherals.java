@@ -31,4 +31,11 @@ final class InitializedPeripherals implements Cpu {
         this.peripherals.hexKeyboard().off();
         this.peripherals.display().off();
     }
+
+    @Override
+    public void execute(final UnsignedShort initialPC) {
+        this.initialized(
+                () -> this.origin.execute(initialPC)
+        );
+    }
 }

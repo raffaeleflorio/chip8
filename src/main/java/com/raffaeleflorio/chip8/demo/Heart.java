@@ -6,6 +6,7 @@ import com.raffaeleflorio.chip8.UnsignedShort;
 import com.raffaeleflorio.chip8.cpu.DefaultCpu;
 import com.raffaeleflorio.chip8.instruction.AddToVx;
 import com.raffaeleflorio.chip8.instruction.AddVyToVx;
+import com.raffaeleflorio.chip8.instruction.Chip8OpCodeTable;
 import com.raffaeleflorio.chip8.instruction.Clear;
 import com.raffaeleflorio.chip8.instruction.Draw;
 import com.raffaeleflorio.chip8.instruction.GetDelay;
@@ -31,7 +32,8 @@ public final class Heart extends Application {
         var cpu = new DefaultCpu(
                 new DefaultStack(),
                 new DefaultMemory(),
-                new DefaultPeripherals()
+                new DefaultPeripherals(),
+                new Chip8OpCodeTable()
         );
 
         new Thread(() -> {

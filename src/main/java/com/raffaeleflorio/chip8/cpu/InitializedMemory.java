@@ -195,4 +195,11 @@ final class InitializedMemory implements Cpu {
     private UnsignedShort address(final Integer spriteNr, final Integer row) {
         return new UnsignedShort.From((SPRITE_HEIGHT * spriteNr) + row);
     }
+
+    @Override
+    public void execute(final UnsignedShort initialPC) {
+        this.initialized(
+                () -> this.origin.execute(initialPC)
+        );
+    }
 }

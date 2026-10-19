@@ -11,7 +11,7 @@ public interface Cpu {
 
     void execute(List<Instruction> instructions);
 
-    void execute(UnsignedShort initialPC, List<Instruction> instructions);
+    void execute(UnsignedShort initialPC);
 
     interface Registers {
 

@@ -3,6 +3,7 @@ package com.raffaeleflorio.chip8.cpu;
 import com.raffaeleflorio.chip8.Cpu;
 import com.raffaeleflorio.chip8.Instruction;
 import com.raffaeleflorio.chip8.Memory;
+import com.raffaeleflorio.chip8.OpCodeTable;
 import com.raffaeleflorio.chip8.Peripherals;
 import com.raffaeleflorio.chip8.Stack;
 import com.raffaeleflorio.chip8.UnsignedShort;
@@ -16,7 +17,8 @@ public final class DefaultCpu implements Cpu {
     public DefaultCpu(
             final Stack stack,
             final Memory memory,
-            final Peripherals peripherals
+            final Peripherals peripherals,
+            final OpCodeTable opCodeTable
     ) {
         this(
                 new SynchronizedCpu(
@@ -25,7 +27,8 @@ public final class DefaultCpu implements Cpu {
                                         new SimpleCpu(
                                                 stack,
                                                 memory,
-                                                peripherals
+                                                peripherals,
+                                                opCodeTable
                                         ),
                                         peripherals
                                 ),
@@ -42,5 +45,10 @@ public final class DefaultCpu implements Cpu {
     @Override
     public void execute(final List<Instruction> instructions) {
         this.origin.execute(instructions);
+    }
+
+    @Override
+    public void execute(final UnsignedShort initialPC) {
+        this.origin.execute(initialPC);
     }
 }
