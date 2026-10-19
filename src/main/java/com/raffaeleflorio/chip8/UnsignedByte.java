@@ -20,7 +20,7 @@ public interface UnsignedByte {
 
     Bit mostSignificantBit();
 
-    Bit leastSignificatBit();
+    Bit leastSignificantBit();
 
     UnsignedNibble mostSignificantNibble();
 
@@ -136,7 +136,7 @@ public interface UnsignedByte {
         }
 
         @Override
-        public Bit leastSignificatBit() {
+        public Bit leastSignificantBit() {
             return (this.asInteger() & 0x1) == 0x1 ? new Bit.One() : new Bit.Zero();
         }
 

@@ -111,7 +111,7 @@ class UnsignedByteTest {
     void least_significant_bit_is_the_rightmost() {
         var ubyte = new UnsignedByte.From(0b00000001);
 
-        assertThat(ubyte.leastSignificatBit()).isEqualTo(new Bit.One());
+        assertThat(ubyte.leastSignificantBit()).isEqualTo(new Bit.One());
     }
 
     @Test

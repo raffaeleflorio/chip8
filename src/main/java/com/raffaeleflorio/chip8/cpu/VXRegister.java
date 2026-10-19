@@ -55,7 +55,7 @@ final class VXRegister implements Cpu.Register<UnsignedByte> {
 
     @Override
     public void shiftRight(final Consumer<Bit> leastSignificantBit) {
-        leastSignificantBit.accept(this.value.leastSignificatBit());
+        leastSignificantBit.accept(this.value.leastSignificantBit());
         this.value = this.value.shiftedRight();
     }
 

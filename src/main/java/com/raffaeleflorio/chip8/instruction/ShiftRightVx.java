@@ -30,7 +30,7 @@ public final class ShiftRightVx implements Instruction {
     ) {
         var firstRegisterValue = this.firstRegisterValue(registers);
         this.secondRegister(registers).value(firstRegisterValue.shiftedRight());
-        registers.vF().value(firstRegisterValue.leastSignificatBit().asUnsignedByte());
+        registers.vF().value(firstRegisterValue.leastSignificantBit().asUnsignedByte());
     }
 
     private UnsignedByte firstRegisterValue(final Cpu.Registers registers) {
