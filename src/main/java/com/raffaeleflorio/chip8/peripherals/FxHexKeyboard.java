@@ -8,8 +8,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
+import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 
 final class FxHexKeyboard implements HexKeyboard {
 
@@ -64,32 +64,34 @@ final class FxHexKeyboard implements HexKeyboard {
 
     private final class KeyEventHandler implements EventHandler<KeyEvent> {
 
-        private final static Set<KeyCode> ALLOWED_CODES = Set.of(
-                KeyCode.DIGIT0,
-                KeyCode.DIGIT1,
-                KeyCode.DIGIT2,
-                KeyCode.DIGIT3,
-                KeyCode.DIGIT4,
-                KeyCode.DIGIT5,
-                KeyCode.DIGIT6,
-                KeyCode.DIGIT7,
-                KeyCode.DIGIT8,
-                KeyCode.DIGIT9,
-                KeyCode.A,
-                KeyCode.B,
-                KeyCode.C,
-                KeyCode.D,
-                KeyCode.E,
-                KeyCode.F
+        private final static Map<KeyCode, UnsignedNibble> KEYCODE_NIBBLES = Map.ofEntries(
+                Map.entry(KeyCode.DIGIT0, new UnsignedNibble.Zero()),
+                Map.entry(KeyCode.DIGIT1, new UnsignedNibble.One()),
+                Map.entry(KeyCode.DIGIT2, new UnsignedNibble.Two()),
+                Map.entry(KeyCode.DIGIT3, new UnsignedNibble.Three()),
+                Map.entry(KeyCode.DIGIT4, new UnsignedNibble.Four()),
+                Map.entry(KeyCode.DIGIT5, new UnsignedNibble.Five()),
+                Map.entry(KeyCode.DIGIT6, new UnsignedNibble.Six()),
+                Map.entry(KeyCode.DIGIT7, new UnsignedNibble.Seven()),
+                Map.entry(KeyCode.DIGIT8, new UnsignedNibble.Eight()),
+                Map.entry(KeyCode.DIGIT9, new UnsignedNibble.Nine()),
+                Map.entry(KeyCode.A, new UnsignedNibble.Ten()),
+                Map.entry(KeyCode.B, new UnsignedNibble.Eleven()),
+                Map.entry(KeyCode.C, new UnsignedNibble.Twelve()),
+                Map.entry(KeyCode.D, new UnsignedNibble.Thirteen()),
+                Map.entry(KeyCode.E, new UnsignedNibble.Fourteen()),
+                Map.entry(KeyCode.F, new UnsignedNibble.Fifteen())
         );
 
         @Override
         public void handle(final KeyEvent ev) {
-            synchronized (FxHexKeyboard.this) {
-                if (ev.getEventType().equals(KeyEvent.KEY_PRESSED) && ALLOWED_CODES.contains(ev.getCode())) {
-                    FxHexKeyboard.this.key = new FxKey(ev.getCode());
+            if (ev.getEventType().equals(KeyEvent.KEY_PRESSED) && KEYCODE_NIBBLES.containsKey(ev.getCode())) {
+                synchronized (FxHexKeyboard.this) {
+                    FxHexKeyboard.this.key = new FxKey(ev.getCode(), KEYCODE_NIBBLES);
                     FxHexKeyboard.this.notify();
-                } else if (ev.getEventType().equals(KeyEvent.KEY_RELEASED) && ALLOWED_CODES.contains(ev.getCode())) {
+                }
+            } else if (ev.getEventType().equals(KeyEvent.KEY_RELEASED) && KEYCODE_NIBBLES.containsKey(ev.getCode())) {
+                synchronized (FxHexKeyboard.this) {
                     FxHexKeyboard.this.key = null;
                 }
             }
@@ -99,32 +101,16 @@ final class FxHexKeyboard implements HexKeyboard {
     private final static class FxKey implements Key {
 
         private final KeyCode code;
+        private final Map<KeyCode, UnsignedNibble> map;
 
-        private FxKey(final KeyCode code) {
+        private FxKey(final KeyCode code, final Map<KeyCode, UnsignedNibble> map) {
             this.code = code;
+            this.map = map;
         }
 
         @Override
         public UnsignedNibble asUnsignedNibble() {
-            return switch (this.code) {
-                case KeyCode.DIGIT0 -> new UnsignedNibble.Zero();
-                case KeyCode.DIGIT1 -> new UnsignedNibble.One();
-                case KeyCode.DIGIT2 -> new UnsignedNibble.Two();
-                case KeyCode.DIGIT3 -> new UnsignedNibble.Three();
-                case KeyCode.DIGIT4 -> new UnsignedNibble.Four();
-                case KeyCode.DIGIT5 -> new UnsignedNibble.Five();
-                case KeyCode.DIGIT6 -> new UnsignedNibble.Six();
-                case KeyCode.DIGIT7 -> new UnsignedNibble.Seven();
-                case KeyCode.DIGIT8 -> new UnsignedNibble.Eight();
-                case KeyCode.DIGIT9 -> new UnsignedNibble.Nine();
-                case KeyCode.A -> new UnsignedNibble.Ten();
-                case KeyCode.B -> new UnsignedNibble.Eleven();
-                case KeyCode.C -> new UnsignedNibble.Twelve();
-                case KeyCode.D -> new UnsignedNibble.Thirteen();
-                case KeyCode.E -> new UnsignedNibble.Fourteen();
-                case KeyCode.F -> new UnsignedNibble.Fifteen();
-                default -> throw new IllegalStateException();
-            };
+            return this.map.get(this.code);
         }
     }
 }
