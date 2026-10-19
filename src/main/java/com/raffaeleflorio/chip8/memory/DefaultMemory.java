@@ -11,6 +11,7 @@ import java.nio.file.Path;
 public final class DefaultMemory implements Memory {
 
     private final static Integer SIZE = 4096;
+    private final static UnsignedByte ZERO = new UnsignedByte.From(0);
 
     private final UnsignedByte[] memory;
 
@@ -37,7 +38,8 @@ public final class DefaultMemory implements Memory {
         if (address.asInteger() >= SIZE) {
             throw new IllegalArgumentException();
         }
-        return this.memory[address.asInteger()];
+        var result = this.memory[address.asInteger()];
+        return result != null ? result : ZERO;
     }
 
     @Override
