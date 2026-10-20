@@ -48,18 +48,24 @@ final class FxHexKeyboard implements HexKeyboard {
     public void on() {
         Platform.runLater(() -> {
             if (!this.initialized()) {
-                this.stage.getScene().setOnKeyPressed(new KeyEventHandler());
+                var eventHandler = new KeyEventHandler();
+                this.stage.getScene().setOnKeyPressed(eventHandler);
+                this.stage.getScene().setOnKeyReleased(eventHandler);
             }
         });
     }
 
     private Boolean initialized() {
-        return this.stage.getScene().getOnKeyPressed() != null;
+        var scene = this.stage.getScene();
+        return scene.getOnKeyPressed() != null && scene.getOnKeyReleased() != null;
     }
 
     @Override
     public void off() {
-        Platform.runLater(() -> this.stage.getScene().setOnKeyPressed(null));
+        Platform.runLater(() -> {
+            this.stage.getScene().setOnKeyPressed(null);
+            this.stage.getScene().setOnKeyReleased(null);
+        });
     }
 
     private final class KeyEventHandler implements EventHandler<KeyEvent> {
