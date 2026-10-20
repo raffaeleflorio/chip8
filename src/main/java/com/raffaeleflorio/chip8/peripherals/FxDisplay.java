@@ -98,14 +98,14 @@ final class FxDisplay implements Display {
     }
 
     private Rectangle pixel(final Integer x, final Integer y) {
-        if (x < 0 || y < 0 || x > COLUMNS || y > ROWS) {
+        if (x < 0 || y < 0) {
             throw new IllegalArgumentException();
         }
         if (!this.initialized()) {
             throw new IllegalStateException();
         }
         var root = (TilePane) this.stage.getScene().getRoot();
-        return (Rectangle) root.getChildren().get((y * COLUMNS) + x);
+        return (Rectangle) root.getChildren().get(((y % ROWS) * COLUMNS) + (x % COLUMNS));
     }
 
     private Boolean on(final Rectangle pixel) {
