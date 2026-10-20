@@ -9,7 +9,7 @@ import com.raffaeleflorio.chip8.UnsignedByte;
 import com.raffaeleflorio.chip8.UnsignedNibble;
 
 /**
- * 8XYE opcode: Sets VY to VX shifted to the left by 1. Sets VF to 1 if the most significant bit of VX is set, or to 0 if it is not
+ * 8XYE opcode: Sets VX to VY shifted to the left by 1. Sets VF to 1 if the most significant bit of VY is set, or to 0 if it is not
  */
 public final class ShiftLeftVx implements Instruction {
 
@@ -28,16 +28,16 @@ public final class ShiftLeftVx implements Instruction {
             final Memory memory,
             final Peripherals peripherals
     ) {
-        var firstRegisterValue = this.firstRegisterValue(registers);
-        this.secondRegister(registers).value(firstRegisterValue.shiftedLeft());
-        registers.vF().value(firstRegisterValue.mostSignificantBit().asUnsignedByte());
+        var secondRegisterValue = this.secondRegisterValue(registers);
+        this.firstRegister(registers).value(secondRegisterValue.shiftedLeft());
+        registers.vF().value(secondRegisterValue.mostSignificantBit().asUnsignedByte());
     }
 
-    private UnsignedByte firstRegisterValue(final Cpu.Registers registers) {
+    private UnsignedByte secondRegisterValue(final Cpu.Registers registers) {
         return registers.vX(this.secondRegisterId).value();
     }
 
-    private Cpu.Register<UnsignedByte> secondRegister(final Cpu.Registers registers) {
+    private Cpu.Register<UnsignedByte> firstRegister(final Cpu.Registers registers) {
         return registers.vX(this.firstRegisterId);
     }
 
