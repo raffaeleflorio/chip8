@@ -9,6 +9,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.util.Set;
+import java.util.concurrent.CountDownLatch;
 
 final class FxDisplay implements Display {
 
@@ -30,13 +31,25 @@ final class FxDisplay implements Display {
 
     @Override
     public void on() {
+        var latch = new CountDownLatch(1);
         Platform.runLater(() -> {
             if (!this.initialized()) {
                 this.stage.setScene(this.blankScene());
                 this.stage.setResizable(false);
             }
             this.stage.show();
+            latch.countDown();
         });
+        this.await(latch);
+    }
+
+    private void await(final CountDownLatch latch) {
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new RuntimeException(e);
+        }
     }
 
     private Boolean initialized() {
@@ -55,6 +68,7 @@ final class FxDisplay implements Display {
 
     @Override
     public void clear() {
+        var latch = new CountDownLatch(1);
         Platform.runLater(() -> {
             for (var x = 0; x < COLUMNS; x++) {
                 for (var y = 0; y < ROWS; y++) {
@@ -64,7 +78,9 @@ final class FxDisplay implements Display {
                     }
                 }
             }
+            latch.countDown();
         });
+        this.await(latch);
     }
 
     private Rectangle turnedOffPixel() {
@@ -78,6 +94,7 @@ final class FxDisplay implements Display {
 
     @Override
     public void xor(final Set<Coordinate> coordinates, final Runnable whenCollision, final Runnable whenNoCollision) {
+        var latch = new CountDownLatch(1);
         Platform.runLater(() -> {
             var collision = false;
             for (var coordinate : coordinates) {
@@ -94,7 +111,9 @@ final class FxDisplay implements Display {
             } else {
                 whenNoCollision.run();
             }
+            latch.countDown();
         });
+        this.await(latch);
     }
 
     private Rectangle pixel(final Integer x, final Integer y) {
