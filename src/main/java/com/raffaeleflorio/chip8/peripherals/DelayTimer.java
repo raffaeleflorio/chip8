@@ -29,10 +29,35 @@ final class DelayTimer implements Timer {
         var previousValue = this.value;
         this.value = value;
         if (this.valueDecreaseThread == null) {
-            this.valueDecreaseThread = new PeriodicValueDecreaseThread(this, FREQUENCY_HZ);
+            this.valueDecreaseThread = new PeriodicValueDecreaseThread();
             this.valueDecreaseThread.start();
         } else if (previousValue.equals(ZERO) && !this.value.equals(ZERO)) {
             this.notify();
+        }
+    }
+
+    final class PeriodicValueDecreaseThread extends Thread {
+
+        private final static UnsignedByte ZERO = new UnsignedByte.From(0);
+        private final static UnsignedByte ONE = new UnsignedByte.From(1);
+
+        @Override
+        public void run() {
+            while (!Thread.currentThread().isInterrupted()) {
+                try {
+                    Thread.sleep(1000 / FREQUENCY_HZ);
+                    synchronized (DelayTimer.this) {
+                        if (!DelayTimer.this.value().equals(ZERO)) {
+                            DelayTimer.this.value = DelayTimer.this.value().difference(ONE);
+                        }
+                        while (DelayTimer.this.value().equals(ZERO)) {
+                            DelayTimer.this.wait();
+                        }
+                    }
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+            }
         }
     }
 }
