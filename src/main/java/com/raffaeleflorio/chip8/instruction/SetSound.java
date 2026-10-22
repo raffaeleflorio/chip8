@@ -25,7 +25,7 @@ public final class SetSound implements Instruction {
             final Memory memory,
             final Peripherals peripherals
     ) {
-        // TODO
+        peripherals.soundTimer().value(registers.vX(this.registerId).value());
     }
 
     @Override
