@@ -6,5 +6,7 @@ public interface Peripherals {
 
     Timer delayTimer();
 
+    Timer soundTimer();
+
     HexKeyboard hexKeyboard();
 }

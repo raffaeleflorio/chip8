@@ -10,6 +10,7 @@ public final class DefaultPeripherals implements Peripherals {
 
     private final Display display;
     private final Timer delayTimer;
+    private final Timer soundTimer;
     private final HexKeyboard hexKeyboard;
 
     public DefaultPeripherals() {
@@ -22,13 +23,20 @@ public final class DefaultPeripherals implements Peripherals {
         this(
                 new FxDisplay(stage),
                 new DelayTimer(),
+                new FxSoundTimer(),
                 new FxHexKeyboard(stage)
         );
     }
 
-    DefaultPeripherals(final Display display, final DelayTimer delayTimer, final HexKeyboard hexKeyboard) {
+    DefaultPeripherals(
+            final Display display,
+            final DelayTimer delayTimer,
+            final Timer soundTimer,
+            final HexKeyboard hexKeyboard
+    ) {
         this.display = display;
         this.delayTimer = delayTimer;
+        this.soundTimer = soundTimer;
         this.hexKeyboard = hexKeyboard;
     }
 
@@ -40,6 +48,11 @@ public final class DefaultPeripherals implements Peripherals {
     @Override
     public Timer delayTimer() {
         return this.delayTimer;
+    }
+
+    @Override
+    public Timer soundTimer() {
+        return this.soundTimer;
     }
 
     @Override

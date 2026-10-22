@@ -4,7 +4,7 @@ import com.raffaeleflorio.chip8.Timer;
 import com.raffaeleflorio.chip8.UnsignedByte;
 import javafx.scene.media.AudioClip;
 
-public final class FxSoundTimer implements Timer {
+final class FxSoundTimer implements Timer {
 
     private final static Integer FREQUENCY_HZ = 60;
     private final static UnsignedByte ZERO = new UnsignedByte.From(0);
@@ -15,7 +15,7 @@ public final class FxSoundTimer implements Timer {
     private UnsignedByte value;
     private Thread beepThread;
 
-    public FxSoundTimer() {
+    FxSoundTimer() {
         this(new AudioClip("file:src/main/resources/beep.wav"));
     }
 
@@ -51,6 +51,7 @@ public final class FxSoundTimer implements Timer {
         public void run() {
             while (!Thread.currentThread().isInterrupted()) {
                 try {
+                    Thread.sleep(1000 / FREQUENCY_HZ);
                     synchronized (FxSoundTimer.this) {
                         if (!FxSoundTimer.this.value.equals(ZERO)) {
                             FxSoundTimer.this.value = FxSoundTimer.this.value.difference(ONE);
@@ -65,7 +66,6 @@ public final class FxSoundTimer implements Timer {
                             FxSoundTimer.this.wait();
                         }
                     }
-                    Thread.sleep(1000 / FREQUENCY_HZ);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }
