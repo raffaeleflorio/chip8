@@ -53,17 +53,14 @@ final class FxSoundTimer implements Timer {
                 try {
                     Thread.sleep(1000 / FREQUENCY_HZ);
                     synchronized (FxSoundTimer.this) {
-                        if (!FxSoundTimer.this.value.equals(ZERO)) {
-                            FxSoundTimer.this.value = FxSoundTimer.this.value.difference(ONE);
-                            if (!FxSoundTimer.this.beep.isPlaying()) {
-                                FxSoundTimer.this.beep.play();
-                            }
-                        }
                         while (FxSoundTimer.this.value.equals(ZERO)) {
-                            if (FxSoundTimer.this.beep.isPlaying()) {
-                                FxSoundTimer.this.beep.stop();
-                            }
+                            FxSoundTimer.this.beep.stop();
                             FxSoundTimer.this.wait();
+                        }
+
+                        FxSoundTimer.this.value = FxSoundTimer.this.value.difference(ONE);
+                        if (!FxSoundTimer.this.beep.isPlaying()) {
+                            FxSoundTimer.this.beep.play();
                         }
                     }
                 } catch (InterruptedException e) {
