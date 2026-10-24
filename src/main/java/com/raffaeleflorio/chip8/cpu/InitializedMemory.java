@@ -180,16 +180,12 @@ final class InitializedMemory implements Cpu {
     }
 
     private void loadSprites() {
-        for (var spriteNr = 0; spriteNr < 16; spriteNr++) {
-            var sprite = this.sprite(spriteNr);
+        for (var spriteNr = 0; spriteNr < SPRITES.size(); spriteNr++) {
+            var sprite = SPRITES.get(spriteNr);
             for (var rowNr = 0; rowNr < SPRITE_HEIGHT; rowNr++) {
                 this.memory.value(this.address(spriteNr, rowNr), sprite.get(rowNr));
             }
         }
-    }
-
-    private List<UnsignedByte> sprite(final Integer spriteNr) {
-        return SPRITES.get(spriteNr);
     }
 
     private UnsignedShort address(final Integer spriteNr, final Integer row) {
