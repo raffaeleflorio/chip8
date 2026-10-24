@@ -2,11 +2,7 @@ package com.raffaeleflorio.chip8;
 
 import java.util.Set;
 
-public interface Display {
-
-    void on();
-
-    void off();
+public interface Display extends Peripheral {
 
     void clear();
 

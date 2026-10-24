@@ -9,7 +9,7 @@ final class DelayTimer implements Timer {
     private final static UnsignedByte ZERO = new UnsignedByte.From(0);
 
     private UnsignedByte value;
-    private Thread valueDecreaseThread;
+    private Thread valueThread;
 
     DelayTimer() {
         this(ZERO);
@@ -28,15 +28,28 @@ final class DelayTimer implements Timer {
     public synchronized void value(final UnsignedByte value) {
         var previousValue = this.value;
         this.value = value;
-        if (this.valueDecreaseThread == null) {
-            this.valueDecreaseThread = new PeriodicValueDecreaseThread();
-            this.valueDecreaseThread.start();
-        } else if (previousValue.equals(ZERO) && !this.value.equals(ZERO)) {
+        if (previousValue.equals(ZERO) && !this.value.equals(ZERO)) {
             this.notify();
         }
     }
 
-    final class PeriodicValueDecreaseThread extends Thread {
+    @Override
+    public synchronized void on() {
+        if (this.valueThread == null) {
+            this.valueThread = new ValueThread();
+            this.valueThread.start();
+        }
+    }
+
+    @Override
+    public synchronized void off() {
+        if (this.valueThread != null) {
+            this.valueThread.interrupt();
+            this.valueThread = null;
+        }
+    }
+
+    final class ValueThread extends Thread {
 
         private final static UnsignedByte ZERO = new UnsignedByte.From(0);
         private final static UnsignedByte ONE = new UnsignedByte.From(1);
@@ -45,7 +58,6 @@ final class DelayTimer implements Timer {
         public void run() {
             while (!Thread.currentThread().isInterrupted()) {
                 try {
-                    Thread.sleep(1000 / FREQUENCY_HZ);
                     synchronized (DelayTimer.this) {
                         while (DelayTimer.this.value().equals(ZERO)) {
                             DelayTimer.this.wait();
@@ -53,6 +65,7 @@ final class DelayTimer implements Timer {
 
                         DelayTimer.this.value = DelayTimer.this.value().difference(ONE);
                     }
+                    Thread.sleep(1000 / FREQUENCY_HZ);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }

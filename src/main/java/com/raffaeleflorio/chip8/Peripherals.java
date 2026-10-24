@@ -9,4 +9,8 @@ public interface Peripherals {
     Timer soundTimer();
 
     HexKeyboard hexKeyboard();
+
+    void on();
+
+    void off();
 }

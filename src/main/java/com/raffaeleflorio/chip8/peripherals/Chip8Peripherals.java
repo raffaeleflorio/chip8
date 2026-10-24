@@ -59,4 +59,20 @@ public final class Chip8Peripherals implements Peripherals {
     public HexKeyboard hexKeyboard() {
         return this.hexKeyboard;
     }
+
+    @Override
+    public void on() {
+        this.delayTimer.on();
+        this.soundTimer.on();
+        this.display.on();
+        this.hexKeyboard.on();
+    }
+
+    @Override
+    public void off() {
+        this.hexKeyboard.off();
+        this.display.off();
+        this.soundTimer.off();
+        this.delayTimer.off();
+    }
 }

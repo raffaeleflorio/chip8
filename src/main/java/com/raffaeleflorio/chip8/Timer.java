@@ -1,6 +1,6 @@
 package com.raffaeleflorio.chip8;
 
-public interface Timer {
+public interface Timer extends Peripheral {
 
     UnsignedByte value();
 

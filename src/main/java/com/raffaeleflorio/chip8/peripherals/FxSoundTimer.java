@@ -37,11 +37,24 @@ final class FxSoundTimer implements Timer {
     public synchronized void value(final UnsignedByte value) {
         var previousValue = this.value;
         this.value = value;
+        if (previousValue.equals(ZERO) && !this.value.equals(ZERO)) {
+            this.notify();
+        }
+    }
+
+    @Override
+    public synchronized void on() {
         if (this.beepThread == null) {
             this.beepThread = new BeepThread();
             this.beepThread.start();
-        } else if (previousValue.equals(ZERO) && !this.value.equals(ZERO)) {
-            this.notify();
+        }
+    }
+
+    @Override
+    public synchronized void off() {
+        if (this.beepThread != null) {
+            this.beepThread.interrupt();
+            this.beepThread = null;
         }
     }
 
@@ -51,7 +64,6 @@ final class FxSoundTimer implements Timer {
         public void run() {
             while (!Thread.currentThread().isInterrupted()) {
                 try {
-                    Thread.sleep(1000 / FREQUENCY_HZ);
                     synchronized (FxSoundTimer.this) {
                         while (FxSoundTimer.this.value.equals(ZERO)) {
                             FxSoundTimer.this.beep.stop();
@@ -63,6 +75,7 @@ final class FxSoundTimer implements Timer {
                             FxSoundTimer.this.beep.play();
                         }
                     }
+                    Thread.sleep(1000 / FREQUENCY_HZ);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }
