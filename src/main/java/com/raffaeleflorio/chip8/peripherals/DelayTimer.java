@@ -47,12 +47,11 @@ final class DelayTimer implements Timer {
                 try {
                     Thread.sleep(1000 / FREQUENCY_HZ);
                     synchronized (DelayTimer.this) {
-                        if (!DelayTimer.this.value().equals(ZERO)) {
-                            DelayTimer.this.value = DelayTimer.this.value().difference(ONE);
-                        }
                         while (DelayTimer.this.value().equals(ZERO)) {
                             DelayTimer.this.wait();
                         }
+
+                        DelayTimer.this.value = DelayTimer.this.value().difference(ONE);
                     }
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
