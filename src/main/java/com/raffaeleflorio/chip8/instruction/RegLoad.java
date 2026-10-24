@@ -9,11 +9,10 @@ import com.raffaeleflorio.chip8.UnsignedNibble;
 import com.raffaeleflorio.chip8.UnsignedShort;
 
 /**
- * FX65 opcode: Fills from V0 to VX (including VX) with values from memory, starting at address I. I is left unmodified
+ * FX65 opcode: Fills from V0 to VX (including VX) with values from memory, starting at address I. I is incremented by X + 1
  */
 public final class RegLoad implements Instruction {
 
-    private final static UnsignedShort ZERO = new UnsignedShort.From(0);
     private final static UnsignedShort ONE = new UnsignedShort.From(1);
 
     private final UnsignedNibble lastRegisterId; //X
@@ -29,12 +28,9 @@ public final class RegLoad implements Instruction {
             final Memory memory,
             final Peripherals peripherals
     ) {
-        var offset = ZERO;
         for (var register : registers.vXUpTo(this.lastRegisterId)) {
-            register.value(
-                    memory.value(registers.i().value().sum(offset))
-            );
-            offset = offset.sum(ONE);
+            register.value(memory.value(registers.i().value()));
+            registers.i().add(ONE);
         }
     }
 

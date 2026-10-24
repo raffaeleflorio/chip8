@@ -9,11 +9,10 @@ import com.raffaeleflorio.chip8.UnsignedNibble;
 import com.raffaeleflorio.chip8.UnsignedShort;
 
 /**
- * FX55 opcode: Stores from V0 to VX (including VX) in memory, starting at address I. I is left unmodified
+ * FX55 opcode: Stores from V0 to VX (including VX) in memory, starting at address I. I is incremented by X + 1
  */
 public final class RegDump implements Instruction {
 
-    private final static UnsignedShort ZERO = new UnsignedShort.From(0);
     private final static UnsignedShort ONE = new UnsignedShort.From(1);
 
     private final UnsignedNibble lastRegisterId; //X
@@ -29,13 +28,9 @@ public final class RegDump implements Instruction {
             final Memory memory,
             final Peripherals peripherals
     ) {
-        var offset = ZERO;
         for (var register : registers.vXUpTo(this.lastRegisterId)) {
-            memory.value(
-                    registers.i().value().sum(offset),
-                    register.value()
-            );
-            offset = offset.sum(ONE);
+            memory.value(registers.i().value(), register.value());
+            registers.i().add(ONE);
         }
     }
 
