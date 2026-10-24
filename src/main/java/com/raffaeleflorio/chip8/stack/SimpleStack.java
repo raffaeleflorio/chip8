@@ -5,28 +5,26 @@ import com.raffaeleflorio.chip8.UnsignedShort;
 
 import java.util.NoSuchElementException;
 
-public final class DefaultStack implements Stack {
-
-    private final static Integer MAX_DEPTH = 12;
+final class SimpleStack implements Stack {
 
     private final UnsignedShort[] stack;
     private Integer sp;
 
-    public DefaultStack() {
+    SimpleStack(final Integer maxDepth) {
         this(
-                new UnsignedShort[MAX_DEPTH],
+                new UnsignedShort[maxDepth],
                 0
         );
     }
 
-    DefaultStack(final UnsignedShort[] stack, final Integer sp) {
+    SimpleStack(final UnsignedShort[] stack, final Integer sp) {
         this.stack = stack;
         this.sp = sp;
     }
 
     @Override
     public void push(final UnsignedShort address) {
-        if (this.sp.equals(MAX_DEPTH)) {
+        if (this.sp.equals(this.stack.length)) {
             throw new IllegalStateException();
         }
         this.stack[sp++] = address;
