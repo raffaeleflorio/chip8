@@ -6,29 +6,29 @@ import com.raffaeleflorio.chip8.Peripherals;
 import com.raffaeleflorio.chip8.Timer;
 import javafx.stage.Stage;
 
-public final class DefaultPeripherals implements Peripherals {
+public final class Chip8Peripherals implements Peripherals {
 
     private final Display display;
     private final Timer delayTimer;
     private final Timer soundTimer;
     private final HexKeyboard hexKeyboard;
 
-    public DefaultPeripherals() {
+    public Chip8Peripherals() {
         this(
                 new Stage()
         );
     }
 
-    DefaultPeripherals(final Stage stage) {
+    Chip8Peripherals(final Stage stage) {
         this(
-                new FxDisplay(stage),
+                new FxDisplay(stage, 64, 32),
                 new DelayTimer(),
                 new FxSoundTimer(),
                 new FxHexKeyboard(stage)
         );
     }
 
-    DefaultPeripherals(
+    Chip8Peripherals(
             final Display display,
             final DelayTimer delayTimer,
             final Timer soundTimer,

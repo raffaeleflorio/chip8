@@ -13,20 +13,18 @@ import java.util.concurrent.CountDownLatch;
 
 final class FxDisplay implements Display {
 
-    private final static Integer COLUMNS = 64;
-    private final static Integer ROWS = 32;
-    private final static Integer PIXEL_SIZE = 10;
+    private final static Integer PIXEL_SIZE = 15;
     private final static Color PIXEL_OFF_COLOR = Color.BLACK;
     private final static Color PIXEL_ON_COLOR = Color.WHITE;
 
     private final Stage stage;
+    private final Integer columns;
+    private final Integer rows;
 
-    FxDisplay() {
-        this(new Stage());
-    }
-
-    FxDisplay(final Stage stage) {
+    FxDisplay(final Stage stage, final Integer columns, final Integer rows) {
         this.stage = stage;
+        this.columns = columns;
+        this.rows = rows;
     }
 
     @Override
@@ -43,6 +41,24 @@ final class FxDisplay implements Display {
         this.await(latch);
     }
 
+    private Boolean initialized() {
+        return this.stage.getScene() != null;
+    }
+
+    private Scene blankScene() {
+        var root = new TilePane();
+        root.setPrefColumns(this.columns);
+        root.setPrefRows(this.rows);
+        for (var i = 0; i < this.columns * this.rows; i++) {
+            root.getChildren().add(this.turnedOffPixel());
+        }
+        return new Scene(root);
+    }
+
+    private Rectangle turnedOffPixel() {
+        return new Rectangle(PIXEL_SIZE, PIXEL_SIZE, PIXEL_OFF_COLOR);
+    }
+
     private void await(final CountDownLatch latch) {
         try {
             latch.await();
@@ -52,26 +68,12 @@ final class FxDisplay implements Display {
         }
     }
 
-    private Boolean initialized() {
-        return this.stage.getScene() != null;
-    }
-
-    private Scene blankScene() {
-        var root = new TilePane();
-        root.setPrefColumns(COLUMNS);
-        root.setPrefRows(ROWS);
-        for (var i = 0; i < COLUMNS * ROWS; i++) {
-            root.getChildren().add(this.turnedOffPixel());
-        }
-        return new Scene(root);
-    }
-
     @Override
     public void clear() {
         var latch = new CountDownLatch(1);
         Platform.runLater(() -> {
-            for (var x = 0; x < COLUMNS; x++) {
-                for (var y = 0; y < ROWS; y++) {
+            for (var x = 0; x < this.columns; x++) {
+                for (var y = 0; y < this.rows; y++) {
                     var pixel = this.pixel(x, y);
                     if (this.on(pixel)) {
                         this.turnOff(pixel);
@@ -83,8 +85,23 @@ final class FxDisplay implements Display {
         this.await(latch);
     }
 
-    private Rectangle turnedOffPixel() {
-        return new Rectangle(PIXEL_SIZE, PIXEL_SIZE, PIXEL_OFF_COLOR);
+    private Rectangle pixel(final Integer x, final Integer y) {
+        if (!this.initialized()) {
+            throw new IllegalStateException();
+        }
+        if (x < 0 || y < 0) {
+            throw new IllegalArgumentException();
+        }
+        var root = (TilePane) this.stage.getScene().getRoot();
+        return (Rectangle) root.getChildren().get(((y % this.rows) * this.columns) + (x % this.columns));
+    }
+
+    private Boolean on(final Rectangle pixel) {
+        return pixel.getFill().equals(PIXEL_ON_COLOR);
+    }
+
+    private void turnOff(final Rectangle pixel) {
+        pixel.setFill(PIXEL_OFF_COLOR);
     }
 
     @Override
@@ -114,25 +131,6 @@ final class FxDisplay implements Display {
             latch.countDown();
         });
         this.await(latch);
-    }
-
-    private Rectangle pixel(final Integer x, final Integer y) {
-        if (x < 0 || y < 0) {
-            throw new IllegalArgumentException();
-        }
-        if (!this.initialized()) {
-            throw new IllegalStateException();
-        }
-        var root = (TilePane) this.stage.getScene().getRoot();
-        return (Rectangle) root.getChildren().get(((y % ROWS) * COLUMNS) + (x % COLUMNS));
-    }
-
-    private Boolean on(final Rectangle pixel) {
-        return pixel.getFill().equals(PIXEL_ON_COLOR);
-    }
-
-    private void turnOff(final Rectangle pixel) {
-        pixel.setFill(PIXEL_OFF_COLOR);
     }
 
     private void turnOn(final Rectangle pixel) {
