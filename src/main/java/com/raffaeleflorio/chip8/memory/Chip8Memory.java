@@ -6,19 +6,19 @@ import com.raffaeleflorio.chip8.UnsignedShort;
 
 import java.nio.file.Path;
 
-public final class DefaultMemory implements Memory {
+public final class Chip8Memory implements Memory {
 
     private final Memory origin;
 
-    public DefaultMemory() {
+    public Chip8Memory() {
         this(
                 new SynchronizedMemory(
-                        new SimpleMemory()
+                        new SimpleMemory(4096)
                 )
         );
     }
 
-    DefaultMemory(final Memory origin) {
+    Chip8Memory(final Memory origin) {
         this.origin = origin;
     }
 

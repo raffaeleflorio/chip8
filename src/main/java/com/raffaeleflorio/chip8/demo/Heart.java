@@ -19,7 +19,7 @@ import com.raffaeleflorio.chip8.instruction.SetI;
 import com.raffaeleflorio.chip8.instruction.SetVx;
 import com.raffaeleflorio.chip8.instruction.SetVxToMaskedRand;
 import com.raffaeleflorio.chip8.instruction.SubVyFromVx;
-import com.raffaeleflorio.chip8.memory.DefaultMemory;
+import com.raffaeleflorio.chip8.memory.Chip8Memory;
 import com.raffaeleflorio.chip8.peripherals.Chip8Peripherals;
 import com.raffaeleflorio.chip8.stack.Chip8Stack;
 import javafx.application.Application;
@@ -31,7 +31,7 @@ public final class Heart extends Application {
     public void start(final Stage stage) {
         var cpu = new DefaultCpu(
                 new Chip8Stack(),
-                new DefaultMemory(),
+                new Chip8Memory(),
                 new Chip8Peripherals(),
                 new Chip8OpCodeTable()
         );

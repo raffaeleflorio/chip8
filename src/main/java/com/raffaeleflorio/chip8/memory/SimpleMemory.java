@@ -10,14 +10,13 @@ import java.nio.file.Path;
 
 final class SimpleMemory implements Memory {
 
-    private final static Integer SIZE = 4096;
     private final static UnsignedByte ZERO = new UnsignedByte.From(0);
 
     private final UnsignedByte[] memory;
 
-    public SimpleMemory() {
+    public SimpleMemory(final Integer size) {
         this(
-                new UnsignedByte[SIZE]
+                new UnsignedByte[size]
         );
     }
 
@@ -27,7 +26,7 @@ final class SimpleMemory implements Memory {
 
     @Override
     public void value(final UnsignedShort address, final UnsignedByte value) {
-        if (address.asInteger() >= SIZE) {
+        if (address.asInteger() >= this.memory.length) {
             throw new IllegalArgumentException();
         }
         this.memory[address.asInteger()] = value;
@@ -35,7 +34,7 @@ final class SimpleMemory implements Memory {
 
     @Override
     public UnsignedByte value(final UnsignedShort address) {
-        if (address.asInteger() >= SIZE) {
+        if (address.asInteger() >= this.memory.length) {
             throw new IllegalArgumentException();
         }
         var result = this.memory[address.asInteger()];
