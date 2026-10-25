@@ -147,7 +147,7 @@ public final class Chip8OpCodeTable implements OpCodeTable {
             ),
             Map.entry(
                     opcode -> startsWith(opcode, 0xF) && endsWith(opcode, 0x55),
-                    opcode -> new RegDump(vX(opcode))
+                    opcode -> new RegStore(vX(opcode))
             ),
             Map.entry(
                     opcode -> startsWith(opcode, 0xF) && endsWith(opcode, 0x65),

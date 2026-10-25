@@ -11,13 +11,13 @@ import com.raffaeleflorio.chip8.UnsignedShort;
 /**
  * FX55 opcode: Stores from V0 to VX (including VX) in memory, starting at address I. I is incremented by X + 1
  */
-public final class RegDump implements Instruction {
+public final class RegStore implements Instruction {
 
     private final static UnsignedShort ONE = new UnsignedShort.From(1);
 
     private final UnsignedNibble lastRegisterId; //X
 
-    public RegDump(final UnsignedNibble lastRegisterId) {
+    public RegStore(final UnsignedNibble lastRegisterId) {
         this.lastRegisterId = lastRegisterId;
     }
 
